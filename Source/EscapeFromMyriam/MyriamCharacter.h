@@ -57,7 +57,9 @@ TArray<AActor*> TargetPointsList;
 
 
 UPROPERTY(EditDefaultsOnly)
-TSubclassOf<AActor> ObjectToDropClass;
+TArray<TSubclassOf<AActor>> ObjectsToDropClass;
+
+int32 ObjectToDropIndex=0;
 
 
 

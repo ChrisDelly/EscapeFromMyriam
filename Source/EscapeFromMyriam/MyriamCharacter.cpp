@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
+#include "Math/UnrealMathUtility.h"
 #include "GameFramework/SpringArmComponent.h"
 
 
@@ -80,7 +81,7 @@ void AMyriamCharacter::MoveRight(float AxisValue)
 
 void AMyriamCharacter::DropSomething()
 {
-	if(ObjectToDropClass == nullptr)
+	if(ObjectsToDropClass.IsEmpty())
 	{
 		return;
 	}
@@ -92,12 +93,12 @@ void AMyriamCharacter::DropSomething()
 	}
 
 	FTransform SpawnTransform = GetActorTransform();
-	if(ObjectToDropClass==nullptr)
-	{
-		return;
-	}
 	
-	auto SpawnedObject = World->SpawnActor<AActor>(ObjectToDropClass,ObjectSpawnPoint->GetComponentLocation(),ObjectSpawnPoint->GetComponentRotation());	
+	ObjectToDropIndex=FMath::RandRange(0,ObjectsToDropClass.Num()-1);
+	
+	auto SpawnedObject = World->SpawnActor<AActor>(ObjectsToDropClass[ObjectToDropIndex],ObjectSpawnPoint->GetComponentLocation(),ObjectSpawnPoint->GetComponentRotation());
+
+	
 
 
 }
