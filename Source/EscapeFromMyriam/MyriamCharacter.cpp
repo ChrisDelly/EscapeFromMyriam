@@ -47,6 +47,9 @@ void AMyriamCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
+	
+
 }
 
 // Called to bind functionality to input
@@ -61,7 +64,7 @@ void AMyriamCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis(TEXT("Turn Right"),this, &APawn::AddControllerYawInput);
 
 	PlayerInputComponent->BindAction("Jump",EInputEvent::IE_Pressed,this,&ACharacter::Jump);
-	//PlayerInputComponent->BindAction("DropSomething",EInputEvent::IE_Pressed,this,&AMyriamCharacter::DropSomething);
+	PlayerInputComponent->BindAction("DropSomething",EInputEvent::IE_Pressed,this,&AMyriamCharacter::DropSomething);
 
 }
 
@@ -89,8 +92,6 @@ void AMyriamCharacter::DropSomething()
 	}
 
 	FTransform SpawnTransform = GetActorTransform();
-	//FVector SpawnLocation= GetActorForwardVector() * (SpawnOffsetLocation,0,0);
-	//FRotator SpawnRotation=GetActorRotation();
 	if(ObjectToDropClass==nullptr)
 	{
 		return;

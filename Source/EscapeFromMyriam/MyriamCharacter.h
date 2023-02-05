@@ -60,4 +60,5 @@ UPROPERTY(EditDefaultsOnly)
 TSubclassOf<AActor> ObjectToDropClass;
 
 
+
 };

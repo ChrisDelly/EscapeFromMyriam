@@ -4,7 +4,7 @@
 		{
 			"name": "Launch EscapeFromMyriam (Debug)",
 			"request": "launch",
-			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
+			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
 			"preLaunchTask": "EscapeFromMyriam Win64 Debug Build",
 			"args": [
 			],
@@ -20,7 +20,7 @@
 		{
 			"name": "Launch EscapeFromMyriam (DebugGame)",
 			"request": "launch",
-			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
+			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
 			"preLaunchTask": "EscapeFromMyriam Win64 DebugGame Build",
 			"args": [
 			],
@@ -36,7 +36,7 @@
 		{
 			"name": "Launch EscapeFromMyriam (Development)",
 			"request": "launch",
-			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame.exe",
+			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame.exe",
 			"preLaunchTask": "EscapeFromMyriam Win64 Development Build",
 			"args": [
 			],
@@ -52,7 +52,7 @@
 		{
 			"name": "Launch EscapeFromMyriam (Test)",
 			"request": "launch",
-			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
+			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
 			"preLaunchTask": "EscapeFromMyriam Win64 Test Build",
 			"args": [
 			],
@@ -68,7 +68,7 @@
 		{
 			"name": "Launch EscapeFromMyriam (Shipping)",
 			"request": "launch",
-			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
+			"program": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
 			"preLaunchTask": "EscapeFromMyriam Win64 Shipping Build",
 			"args": [
 			],
@@ -87,7 +87,7 @@
 			"program": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
 			"preLaunchTask": "EscapeFromMyriamEditor Win64 Debug Build",
 			"args": [
-				"C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\EscapeFromMyriam.uproject"
+				"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\EscapeFromMyriam.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_5.0",
 			"stopAtEntry": false,
@@ -104,7 +104,7 @@
 			"program": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
 			"preLaunchTask": "EscapeFromMyriamEditor Win64 DebugGame Build",
 			"args": [
-				"C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\EscapeFromMyriam.uproject"
+				"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\EscapeFromMyriam.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_5.0",
 			"stopAtEntry": false,
@@ -121,7 +121,7 @@
 			"program": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
 			"preLaunchTask": "EscapeFromMyriamEditor Win64 Development Build",
 			"args": [
-				"C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\EscapeFromMyriam.uproject"
+				"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\EscapeFromMyriam.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_5.0",
 			"stopAtEntry": false,
@@ -140,7 +140,7 @@
 			"args": [
 				"-projectfiles",
 				"-vscode",
-				"-project=C:\\Users\\chris\\Documents\\Unreal Projects\\CryptRaider\\EscapeFromMyriam\\EscapeFromMyriam.uproject",
+				"-project=C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\EscapeFromMyriam.uproject",
 				"-game",
 				"-engine"
 			],
