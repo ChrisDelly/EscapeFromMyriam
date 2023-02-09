@@ -5,7 +5,9 @@
 #include "Camera/CameraComponent.h"
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
+#include "Door.h"
 #include "Math/UnrealMathUtility.h"
+#include "Grabber.h"
 #include "GameFramework/SpringArmComponent.h"
 
 
@@ -24,6 +26,8 @@ AMyriamCharacter::AMyriamCharacter()
 	ObjectSpawnPoint=CreateDefaultSubobject<USceneComponent>(TEXT("Object Spawn Point"));
 	ObjectSpawnPoint->SetupAttachment(RootComponent);
 
+	Grabber=CreateDefaultSubobject<UGrabber>(TEXT("Grabber"));
+	Grabber->SetupAttachment(Camera);
 
 }
 
@@ -101,6 +105,11 @@ void AMyriamCharacter::DropSomething()
 	
 
 
+}
+
+void AMyriamCharacter::Action()
+{
+	
 }
 
 TArray<AActor*> AMyriamCharacter::GetTargetPointList()

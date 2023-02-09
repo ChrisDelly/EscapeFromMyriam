@@ -3,6 +3,7 @@
 
 #include "Grabber.h"
 #include "Engine/World.h"
+#include "Door.h"
 #include "DrawDebugHelpers.h"
 
 // Sets default values for this component's properties
@@ -48,6 +49,14 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	{
 		AActor* hitactor=HitResult.GetActor();
 		UE_LOG(LogTemp,Warning,TEXT("Hit! %s"),*hitactor->GetActorNameOrLabel());
+
+		if(hitactor->GetActorNameOrLabel()=="BP_Door")
+		{
+			UE_LOG(LogTemp,Warning,TEXT("Si! ë una porta! pronto per aprirla"));
+			ADoor* Door=Cast<ADoor>(HitResult.GetActor());
+
+
+		}
 	}
 	
 }

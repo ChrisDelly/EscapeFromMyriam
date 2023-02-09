@@ -22,6 +22,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	void OpenDoor();
+
+	void CloseDoor();
 
 private:
 
@@ -32,11 +36,7 @@ private:
 	class UStaticMeshComponent* LeftDoor;
 
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
-	UStaticMeshComponent* RightDoor;
-
-	void OpenDoor();
-
-	void CloseDoor();
+	UStaticMeshComponent* RightDoor;	
 
 	UPROPERTY(EditAnywhere)
 	float RotationAmount=90.f;

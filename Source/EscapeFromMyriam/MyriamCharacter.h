@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 	
+	UPROPERTY(VisibleAnywhere)
+	class UGrabber* Grabber;
+
 
 public:	
 	// Called every frame
@@ -34,6 +37,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void DropSomething();
+
+	void Action();
 
 	TArray<AActor*> GetTargetPointList();
 
