@@ -7,7 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Door.h"
 #include "Math/UnrealMathUtility.h"
-#include "Grabber.h"
+#include "DrawDebugHelpers.h"
 #include "GameFramework/SpringArmComponent.h"
 
 
@@ -25,9 +25,6 @@ AMyriamCharacter::AMyriamCharacter()
 
 	ObjectSpawnPoint=CreateDefaultSubobject<USceneComponent>(TEXT("Object Spawn Point"));
 	ObjectSpawnPoint->SetupAttachment(RootComponent);
-
-	Grabber=CreateDefaultSubobject<UGrabber>(TEXT("Grabber"));
-	Grabber->SetupAttachment(Camera);
 
 }
 
@@ -52,7 +49,26 @@ void AMyriamCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FHitResult HitResult;
+	FVector LineStartLocation=Camera->GetComponentLocation();
+	FVector LineEndLocation= LineStartLocation + Camera->GetForwardVector() * MaxGrabDistance;
+	bool HasHit=GetWorld()->SweepSingleByChannel(HitResult,
+	LineStartLocation,
+	LineEndLocation,
+	FQuat::Identity,
+	ECC_GameTraceChannel1,
+	FCollisionShape::MakeSphere(SweepSize)
+	);
 
+	//DrawDebugLine(GetWorld(),LineStartLocation,LineEndLocation,FColor::Red,false,10,1,20);
+
+	if(HasHit)
+	{
+		HitActor=HitResult.GetActor();
+		//UE_LOG(LogTemp,Warning,TEXT("Hit! %s"),*HitActor->GetActorRotation());
+
+		
+	}
 	
 
 }
@@ -70,6 +86,7 @@ void AMyriamCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAction("Jump",EInputEvent::IE_Pressed,this,&ACharacter::Jump);
 	PlayerInputComponent->BindAction("DropSomething",EInputEvent::IE_Pressed,this,&AMyriamCharacter::DropSomething);
+	PlayerInputComponent->BindAction("Action",EInputEvent::IE_Pressed,this,&AMyriamCharacter::Action);
 
 }
 
@@ -109,6 +126,33 @@ void AMyriamCharacter::DropSomething()
 
 void AMyriamCharacter::Action()
 {
+	
+	if(HitActor==nullptr)
+	{
+		return;
+	}
+	
+		if(HitActor->ActorHasTag("Door"))
+			{
+				
+				ADoor* Door=Cast<ADoor>(HitActor);
+				Door->OpenDoor();
+
+				//Se aperta
+				if(Door->GetIsOpenDoor())
+				{
+					//chiudi
+					Door->SetIsOpenDoor(false);
+				}
+				else
+				//se chiusa
+				{	
+					//apri
+					Door->SetIsOpenDoor(true);
+				}
+				
+				//Grabber->SetHitActor(nullptr);
+			}
 	
 }
 

@@ -14,7 +14,6 @@ ADoor::ADoor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	
-
 	DoorTriggerBox=CreateDefaultSubobject<UBoxComponent>(TEXT("Door Trigger Box"));
 	RootComponent=DoorTriggerBox;
 
@@ -43,27 +42,58 @@ void ADoor::Tick(float DeltaTime)
 
 void ADoor::OpenDoor()
 {	
-	if(LeftDoor==nullptr)
-	{
-		return;
+	//Se é chiusa
+	if(!bIsOpen)
+	{	
+		//apri porta sinistra
+		if(LeftDoor!=nullptr)
+		{			
+			UE_LOG(LogTemp,Warning,TEXT("Si! é una porta! Apriti!"));
+			FRotator CurrentLeftDoorRotation=LeftDoor->GetRelativeRotation();
+			FRotator TargetLeftDoorRotation=CurrentLeftDoorRotation + FRotator(0,RotationAmount,0);
+			LeftDoor->SetRelativeRotation(TargetLeftDoorRotation) ;
+		}
+		//apri porta destra
+		if(RightDoor!=nullptr)
+		{
+			UE_LOG(LogTemp,Warning,TEXT("Si! é una porta! Apriti!"));
+			FRotator CurrentRightDoorRotation=RightDoor->GetRelativeRotation();
+			FRotator TargetRightDoorRotation=CurrentRightDoorRotation + FRotator(0,RotationAmount,0);
+			RightDoor->SetRelativeRotation(TargetRightDoorRotation);
+		}
+
 	}
-
-	FRotator CurrentLeftDoorRotation=LeftDoor->GetRelativeRotation();
-	FRotator TargetLeftDoorRotation=CurrentLeftDoorRotation + FRotator(0,RotationAmount,0);
-	LeftDoor->AddRelativeRotation(FMath::RInterpTo(CurrentLeftDoorRotation,TargetLeftDoorRotation,UGameplayStatics::GetWorldDeltaSeconds(this),RotationSpeed)) ;
-
-	if(RightDoor==nullptr)
+	//se é aperta
+	else
 	{
-		return;
-	}
+		//chiudi porta sinistra
+		if(LeftDoor!=nullptr)
+		{			
+			UE_LOG(LogTemp,Warning,TEXT("Chiudi"));
+			FRotator CurrentLeftDoorRotation=LeftDoor->GetRelativeRotation();
+			FRotator TargetLeftDoorRotation=CurrentLeftDoorRotation + FRotator(0,-RotationAmount,0);
+			LeftDoor->SetRelativeRotation(TargetLeftDoorRotation) ;
+			
+		}
+		//chiudi porta destra
+		if(RightDoor!=nullptr)
+		{
+			UE_LOG(LogTemp,Warning,TEXT("Chiudi"));
+			FRotator CurrentRightDoorRotation=RightDoor->GetRelativeRotation();
+			FRotator TargetRightDoorRotation=CurrentRightDoorRotation + FRotator(0,-RotationAmount,0);
+			RightDoor->SetRelativeRotation(TargetRightDoorRotation);
+		}
 
-	FRotator CurrentRightDoorRotation=GetActorRotation();
-	FRotator TargetRightDoorRotation=CurrentRightDoorRotation + FRotator(0,RotationAmount,0);
-	LeftDoor->AddRelativeRotation(FMath::RInterpTo(CurrentRightDoorRotation,TargetRightDoorRotation,UGameplayStatics::GetWorldDeltaSeconds(this),RotationSpeed));
+	}
 }
 
-void ADoor::CloseDoor()
+void ADoor::SetIsOpenDoor(bool IsOpen)
 {
-	
+	bIsOpen=IsOpen;
+}
+
+bool ADoor::GetIsOpenDoor()
+{
+	return bIsOpen;
 }
 

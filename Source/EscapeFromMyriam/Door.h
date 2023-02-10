@@ -25,7 +25,8 @@ public:
 	
 	void OpenDoor();
 
-	void CloseDoor();
+	void SetIsOpenDoor(bool IsOpen);
+	bool GetIsOpenDoor();
 
 private:
 
@@ -43,5 +44,8 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float RotationSpeed=5.f;
+
+	UPROPERTY(VisibleAnywhere)
+	bool bIsOpen=false;
 
 };

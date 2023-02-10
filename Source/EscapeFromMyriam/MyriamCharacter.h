@@ -24,10 +24,6 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
-	
-	UPROPERTY(VisibleAnywhere)
-	class UGrabber* Grabber;
-
 
 public:	
 	// Called every frame
@@ -66,6 +62,13 @@ TArray<TSubclassOf<AActor>> ObjectsToDropClass;
 
 int32 ObjectToDropIndex=0;
 
+UPROPERTY(EditAnywhere)
+float MaxGrabDistance =200;
 
+UPROPERTY(EditAnywhere)
+float SweepSize=70;
+
+UPROPERTY(EditAnywhere)
+AActor* HitActor;
 
 };
