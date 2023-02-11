@@ -3,6 +3,7 @@
 
 #include "MyriamCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
 #include "Door.h"
@@ -65,7 +66,7 @@ void AMyriamCharacter::Tick(float DeltaTime)
 	if(HasHit)
 	{
 		HitActor=HitResult.GetActor();
-		//UE_LOG(LogTemp,Warning,TEXT("Hit! %s"),*HitActor->GetActorRotation());
+		//UE_LOG(LogTemp,Warning,TEXT("Hit! %s"),*HitActor->GetActorNameOrLabel());
 
 		
 	}
@@ -100,6 +101,8 @@ void AMyriamCharacter::MoveRight(float AxisValue)
 	AddMovementInput(GetActorRightVector() * AxisValue);
 }
 
+
+
 void AMyriamCharacter::DropSomething()
 {
 	if(ObjectsToDropClass.IsEmpty())
@@ -132,10 +135,43 @@ void AMyriamCharacter::Action()
 		return;
 	}
 	
-		if(HitActor->ActorHasTag("Door"))
-			{
-				
-				ADoor* Door=Cast<ADoor>(HitActor);
+	if(HitActor->ActorHasTag("Door"))
+	{				
+		OpenOrCloseDoor(HitActor);
+	}
+
+	if(HitActor->ActorHasTag("Key"))
+	{				
+		
+		//add actor to inventory
+		Inventory.Add("Key");	
+		
+		// destroy hit actor		
+		HitActor->Destroy();
+
+		//UE_LOG(LogTemp,Warning,TEXT("PortaApertaConChiave! "));
+		//UE_LOG(LogTemp,Warning,TEXT("InventoryObjects! %s"),*Inventory[0]);
+	}
+
+
+	if(HitActor->ActorHasTag("DoorWithKey"))
+	{	
+		//check has key			
+		if(Inventory.Contains<FString>("Key"))
+		OpenOrCloseDoor(HitActor);
+	}
+
+	
+}
+
+TArray<AActor*> AMyriamCharacter::GetTargetPointList()
+{
+	return TargetPointsList;
+}
+
+void AMyriamCharacter::OpenOrCloseDoor(AActor* Actor)
+{
+	ADoor* Door=Cast<ADoor>(Actor);
 				Door->OpenDoor();
 
 				//Se aperta
@@ -150,13 +186,4 @@ void AMyriamCharacter::Action()
 					//apri
 					Door->SetIsOpenDoor(true);
 				}
-				
-				//Grabber->SetHitActor(nullptr);
-			}
-	
-}
-
-TArray<AActor*> AMyriamCharacter::GetTargetPointList()
-{
-	return TargetPointsList;
 }

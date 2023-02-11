@@ -25,6 +25,8 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite, Category="Inventory")
+	TArray<FString> Inventory;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -37,6 +39,8 @@ public:
 	void Action();
 
 	TArray<AActor*> GetTargetPointList();
+
+	
 
 private:
 
@@ -70,5 +74,8 @@ float SweepSize=70;
 
 UPROPERTY(EditAnywhere)
 AActor* HitActor;
+
+void OpenOrCloseDoor(AActor* Actor);
+
 
 };

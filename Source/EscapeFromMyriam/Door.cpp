@@ -48,7 +48,7 @@ void ADoor::OpenDoor()
 		//apri porta sinistra
 		if(LeftDoor!=nullptr)
 		{			
-			UE_LOG(LogTemp,Warning,TEXT("Si! é una porta! Apriti!"));
+			//UE_LOG(LogTemp,Warning,TEXT("Si! é una porta! Apriti!"));
 			FRotator CurrentLeftDoorRotation=LeftDoor->GetRelativeRotation();
 			FRotator TargetLeftDoorRotation=CurrentLeftDoorRotation + FRotator(0,RotationAmount,0);
 			LeftDoor->SetRelativeRotation(TargetLeftDoorRotation) ;
@@ -56,7 +56,7 @@ void ADoor::OpenDoor()
 		//apri porta destra
 		if(RightDoor!=nullptr)
 		{
-			UE_LOG(LogTemp,Warning,TEXT("Si! é una porta! Apriti!"));
+			//UE_LOG(LogTemp,Warning,TEXT("Si! é una porta! Apriti!"));
 			FRotator CurrentRightDoorRotation=RightDoor->GetRelativeRotation();
 			FRotator TargetRightDoorRotation=CurrentRightDoorRotation + FRotator(0,RotationAmount,0);
 			RightDoor->SetRelativeRotation(TargetRightDoorRotation);
@@ -69,7 +69,7 @@ void ADoor::OpenDoor()
 		//chiudi porta sinistra
 		if(LeftDoor!=nullptr)
 		{			
-			UE_LOG(LogTemp,Warning,TEXT("Chiudi"));
+			//UE_LOG(LogTemp,Warning,TEXT("Chiudi"));
 			FRotator CurrentLeftDoorRotation=LeftDoor->GetRelativeRotation();
 			FRotator TargetLeftDoorRotation=CurrentLeftDoorRotation + FRotator(0,-RotationAmount,0);
 			LeftDoor->SetRelativeRotation(TargetLeftDoorRotation) ;
@@ -78,7 +78,7 @@ void ADoor::OpenDoor()
 		//chiudi porta destra
 		if(RightDoor!=nullptr)
 		{
-			UE_LOG(LogTemp,Warning,TEXT("Chiudi"));
+			//UE_LOG(LogTemp,Warning,TEXT("Chiudi"));
 			FRotator CurrentRightDoorRotation=RightDoor->GetRelativeRotation();
 			FRotator TargetRightDoorRotation=CurrentRightDoorRotation + FRotator(0,-RotationAmount,0);
 			RightDoor->SetRelativeRotation(TargetRightDoorRotation);
