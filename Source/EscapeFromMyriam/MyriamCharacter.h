@@ -15,6 +15,8 @@ public:
 	// Sets default values for this character's properties
 	AMyriamCharacter();
 
+	class USphereComponent* GetSphereTrigger();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -27,6 +29,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere,BlueprintReadWrite, Category="Inventory")
 	TArray<FString> Inventory;
+
+	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
+	USphereComponent* SphereTrigger;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -61,7 +66,7 @@ UPROPERTY(VisibleAnywhere)
 TArray<AActor*> TargetPointsList;
 
 
-UPROPERTY(EditDefaultsOnly)
+UPROPERTY(EditAnywhere)
 TArray<TSubclassOf<AActor>> ObjectsToDropClass;
 
 int32 ObjectToDropIndex=0;
@@ -72,7 +77,7 @@ float MaxGrabDistance =200;
 UPROPERTY(EditAnywhere)
 float SweepSize=70;
 
-UPROPERTY(EditAnywhere)
+UPROPERTY(VisibleAnywhere)
 AActor* HitActor;
 
 void OpenOrCloseDoor(AActor* Actor);

@@ -8,6 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Door.h"
 #include "Math/UnrealMathUtility.h"
+#include "Components/SphereComponent.h"
 #include "DrawDebugHelpers.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -27,7 +28,12 @@ AMyriamCharacter::AMyriamCharacter()
 	ObjectSpawnPoint=CreateDefaultSubobject<USceneComponent>(TEXT("Object Spawn Point"));
 	ObjectSpawnPoint->SetupAttachment(RootComponent);
 
+	SphereTrigger=CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Trigger"));
+	SphereTrigger->SetupAttachment(RootComponent);
+	SphereTrigger->SetSphereRadius(300);
+
 }
+
 
 // Called when the game starts or when spawned
 void AMyriamCharacter::BeginPlay()
@@ -186,4 +192,11 @@ void AMyriamCharacter::OpenOrCloseDoor(AActor* Actor)
 					//apri
 					Door->SetIsOpenDoor(true);
 				}
+}
+
+
+
+USphereComponent* AMyriamCharacter::GetSphereTrigger()
+{
+	return SphereTrigger;
 }

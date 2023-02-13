@@ -20,6 +20,16 @@
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
 	},
 	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTService_UpdateObjTideLocation.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_Default\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTService_UpdateObjTideLocation.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_Default\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
 		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTTask_ClearBBdLastKnownLocation.cpp",
 		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_Default\\EscapeFromMyriam.211.rsp\"",
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
