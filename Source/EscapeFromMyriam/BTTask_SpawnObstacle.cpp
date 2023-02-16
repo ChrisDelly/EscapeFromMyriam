@@ -14,6 +14,7 @@ UBTTask_SpawnObstacle::UBTTask_SpawnObstacle()
 
 EBTNodeResult::Type UBTTask_SpawnObstacle::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+    Super::ExecuteTask(OwnerComp,NodeMemory);
 
     if(OwnerComp.GetAIOwner()==nullptr)
     {

@@ -31,7 +31,7 @@ public:
 
 private:
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere)
 	bool bIsInOrder=true;
 
 };

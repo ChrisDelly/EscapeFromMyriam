@@ -3,6 +3,8 @@
 
 #include "BTTask_SetIsInOrder.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "AIController.h"
+#include "ObjectToTide.h"
 
 
 UBTTask_SetIsInOrder::UBTTask_SetIsInOrder()
@@ -13,7 +15,16 @@ UBTTask_SetIsInOrder::UBTTask_SetIsInOrder()
 EBTNodeResult::Type UBTTask_SetIsInOrder::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
     Super::ExecuteTask(OwnerComp, NodeMemory);
-    //OwnerComp.GetAIOwner()->GetBlackboardComponent()->SetValueAsBool(GetSelectedBlackboardKey(),false);
+
+
+    AObjectToTide* ObjectToTide = Cast<AObjectToTide>(OwnerComp.GetAIOwner()->GetBlackboardComponent()->GetValueAsObject(GetSelectedBlackboardKey()));
+
+    if(ObjectToTide == nullptr)
+    {
+       return EBTNodeResult::Failed;
+    }
+
+     ObjectToTide->SetIsInOrder(true);
 
     return EBTNodeResult::Succeeded;
 }

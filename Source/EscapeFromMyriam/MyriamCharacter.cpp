@@ -7,6 +7,7 @@
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
 #include "Door.h"
+#include "ObjectToTide.h"
 #include "Math/UnrealMathUtility.h"
 #include "Components/SphereComponent.h"
 #include "DrawDebugHelpers.h"
@@ -165,6 +166,13 @@ void AMyriamCharacter::Action()
 		//check has key			
 		if(Inventory.Contains<FString>("Key"))
 		OpenOrCloseDoor(HitActor);
+	}
+
+	if(HitActor->ActorHasTag("ObjectToTide"))
+	{
+		AObjectToTide* ObjectToTide=Cast<AObjectToTide>(HitActor);
+		ObjectToTide->SetIsInOrder(false);
+        UE_LOG(LogTemp,Warning,TEXT("Spacca tutto!"));		
 	}
 
 	

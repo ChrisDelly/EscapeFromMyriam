@@ -41,18 +41,44 @@ void UBTService_UpdateObjTideLocation::TickNode(UBehaviorTreeComponent& OwnerCom
     return;
    }
 
-   TriggerSphere->OnComponentBeginOverlap.AddDynamic(this,&UBTService_UpdateObjTideLocation::OnOverlapBegin);
+ //SE MYRIAM É NEL RAGGIO DELL-OGGETTO IMPOSTA BLACKBOARD 
+   TriggerSphere->OnComponentBeginOverlap.AddUniqueDynamic(this,&UBTService_UpdateObjTideLocation::OnOverlapBegin);
+   TriggerSphere->OnComponentEndOverlap.AddUniqueDynamic(this,&UBTService_UpdateObjTideLocation::OnOverlapEnd);
+   if(ObjectToTide != nullptr)
+   {
+    //se l'oggetto é nel raggio ma non é in ordine segna posizione
+    if(!(ObjectToTide->GetIsInOrder()))//se false
+    {
+         UE_LOG(LogTemp,Warning,TEXT("Disordine"));
+         OwnerComp.GetAIOwner()->GetBlackboardComponent()->SetValueAsObject(GetSelectedBlackboardKey(),ObjectToTide);
+    }else
+    {
+        //se true
+        //é in ordine
+         UE_LOG(LogTemp,Warning,TEXT("In Ordine"));
+        OwnerComp.GetAIOwner()->GetBlackboardComponent()->ClearValue(GetSelectedBlackboardKey());
+    }   
+   }
 
-   OwnerComp.GetAIOwner()->GetBlackboardComponent()->SetValueAsObject(GetSelectedBlackboardKey(),ObjectToTide);
+  
+   
 
 }
 
 void UBTService_UpdateObjTideLocation::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-    UE_LOG(LogTemp,Warning,TEXT("OnOverlap Begin"));
+   
     if(OtherActor !=nullptr && OtherActor->IsA(AObjectToTide::StaticClass()))
     {
-        UE_LOG(LogTemp,Warning,TEXT("Set Object Location"));
+       
         ObjectToTide=Cast<AObjectToTide>(OtherActor);
+    }
+}
+
+void UBTService_UpdateObjTideLocation::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+    if(ObjectToTide != nullptr)
+    {
+        ObjectToTide=nullptr;
     }
 }
