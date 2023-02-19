@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InteractInterface.h"
 #include "MyriamCharacter.generated.h"
 
 UCLASS()
-class ESCAPEFROMMYRIAM_API AMyriamCharacter : public ACharacter
+class ESCAPEFROMMYRIAM_API AMyriamCharacter : public ACharacter,public IInteractInterface
 {
 	GENERATED_BODY()
 
@@ -44,6 +45,12 @@ public:
 	void Action();
 
 	TArray<AActor*> GetTargetPointList();
+	
+	virtual void BeginOverlapInteraction(AActor* OtherActor) override;
+
+	virtual void EndOverlapInteraction(AActor* OtherActor) override;
+
+	virtual void Interact(AActor* OtherActor) override;
 
 	
 

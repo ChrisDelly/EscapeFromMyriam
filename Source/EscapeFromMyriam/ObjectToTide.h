@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "InteractInterface.h"
 #include "ObjectToTide.generated.h"
 
 UCLASS()
-class ESCAPEFROMMYRIAM_API AObjectToTide : public AActor
+class ESCAPEFROMMYRIAM_API AObjectToTide : public AActor,public IInteractInterface
 {
 	GENERATED_BODY()
 	
@@ -28,6 +29,13 @@ public:
 	bool GetIsInOrder();
 
 	void SetIsInOrder(bool InOrder);
+
+	
+	virtual void BeginOverlapInteraction(AActor* OtherActor) override;
+
+	virtual void EndOverlapInteraction(AActor* OtherActor) override;
+
+	virtual void Interact(AActor* OtherActor) override;
 
 private:
 

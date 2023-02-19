@@ -35,3 +35,34 @@ void AObjectToTide::SetIsInOrder(bool InOrder)
 	bIsInOrder=InOrder;
 }
 
+void AObjectToTide::BeginOverlapInteraction(AActor* OtherActor)
+{
+
+}
+
+void AObjectToTide::EndOverlapInteraction(AActor* OtherActor)
+{
+
+}
+
+void AObjectToTide::Interact(AActor* OtherActor)
+{
+	if(OtherActor==nullptr)
+	{
+		return;
+	}
+
+	bool bHasInterface=OtherActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass());
+
+	if(bHasInterface)
+	{
+		//AObjectToTide* OTT= Cast<AObjectToTide>(OtherActor);
+		//IInteractInterface::Execute_Interact(OtherActor);
+		UE_LOG(LogTemp,Warning,TEXT("object to tide interact implementation"));
+		SetIsInOrder(false);
+	}
+
+	
+}
+
+

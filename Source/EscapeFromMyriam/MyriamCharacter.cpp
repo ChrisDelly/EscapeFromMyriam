@@ -168,14 +168,43 @@ void AMyriamCharacter::Action()
 		OpenOrCloseDoor(HitActor);
 	}
 
+/*
 	if(HitActor->ActorHasTag("ObjectToTide"))
-	{
-		AObjectToTide* ObjectToTide=Cast<AObjectToTide>(HitActor);
-		ObjectToTide->SetIsInOrder(false);
-        UE_LOG(LogTemp,Warning,TEXT("Spacca tutto!"));		
-	}
+		{
+			AObjectToTide* ObjectToTide=Cast<AObjectToTide>(HitActor);
+			ObjectToTide->SetIsInOrder(false);
+			UE_LOG(LogTemp,Warning,TEXT("Spacca tutto!"));		
+		}
 
+
+*/
 	
+	bool bHasInterface=HitActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass());
+
+	if(bHasInterface)
+	{
+		Interact(HitActor);
+	}
+	
+	
+}
+
+void AMyriamCharacter::BeginOverlapInteraction(AActor* OtherActor)
+{
+	
+}
+
+void AMyriamCharacter::EndOverlapInteraction(AActor* OtherActor)
+{
+	
+}
+
+void AMyriamCharacter::Interact(AActor* OtherActor)
+{	
+	if(OtherActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass()))
+	{
+		Cast<IInteractInterface>(OtherActor)->Interact(OtherActor);
+	}
 }
 
 TArray<AActor*> AMyriamCharacter::GetTargetPointList()
