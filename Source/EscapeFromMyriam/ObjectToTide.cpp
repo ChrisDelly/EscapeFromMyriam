@@ -56,8 +56,6 @@ void AObjectToTide::Interact(AActor* OtherActor)
 
 	if(bHasInterface)
 	{
-		//AObjectToTide* OTT= Cast<AObjectToTide>(OtherActor);
-		//IInteractInterface::Execute_Interact(OtherActor);
 		UE_LOG(LogTemp,Warning,TEXT("object to tide interact implementation"));
 		SetIsInOrder(false);
 	}

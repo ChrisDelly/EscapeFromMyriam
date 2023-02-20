@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "InteractInterface.h"
 #include "Door.generated.h"
 
 UCLASS()
-class ESCAPEFROMMYRIAM_API ADoor : public AActor
+class ESCAPEFROMMYRIAM_API ADoor : public AActor,public IInteractInterface
 {
 	GENERATED_BODY()
 	
@@ -24,9 +25,17 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	void OpenDoor();
+	void CloseDoor();
+	
 
 	void SetIsOpenDoor(bool IsOpen);
 	bool GetIsOpenDoor();
+
+	virtual void BeginOverlapInteraction(AActor* OtherActor) override;
+
+	virtual void EndOverlapInteraction(AActor* OtherActor) override;
+
+	virtual void Interact(AActor* OtherActor) override;
 
 private:
 
@@ -36,8 +45,6 @@ private:
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* LeftDoor;
 
-	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
-	UStaticMeshComponent* RightDoor;	
 
 	UPROPERTY(EditAnywhere)
 	float RotationAmount=90.f;
@@ -48,4 +55,5 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	bool bIsOpen=false;
 
+	void OpenOrCloseDoor();
 };

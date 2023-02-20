@@ -136,57 +136,21 @@ void AMyriamCharacter::DropSomething()
 
 void AMyriamCharacter::Action()
 {
-	
+
 	if(HitActor==nullptr)
+		{
+			return;
+		}
+
+	
+	bool bHasInterface=HitActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass());
+
+	if(!bHasInterface)
 	{
 		return;
 	}
 	
-	if(HitActor->ActorHasTag("Door"))
-	{				
-		OpenOrCloseDoor(HitActor);
-	}
-
-	if(HitActor->ActorHasTag("Key"))
-	{				
-		
-		//add actor to inventory
-		Inventory.Add("Key");	
-		
-		// destroy hit actor		
-		HitActor->Destroy();
-
-		//UE_LOG(LogTemp,Warning,TEXT("PortaApertaConChiave! "));
-		//UE_LOG(LogTemp,Warning,TEXT("InventoryObjects! %s"),*Inventory[0]);
-	}
-
-
-	if(HitActor->ActorHasTag("DoorWithKey"))
-	{	
-		//check has key			
-		if(Inventory.Contains<FString>("Key"))
-		OpenOrCloseDoor(HitActor);
-	}
-
-/*
-	if(HitActor->ActorHasTag("ObjectToTide"))
-		{
-			AObjectToTide* ObjectToTide=Cast<AObjectToTide>(HitActor);
-			ObjectToTide->SetIsInOrder(false);
-			UE_LOG(LogTemp,Warning,TEXT("Spacca tutto!"));		
-		}
-
-
-*/
-	
-	bool bHasInterface=HitActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass());
-
-	if(bHasInterface)
-	{
-		Interact(HitActor);
-	}
-	
-	
+	Cast<IInteractInterface>(HitActor)->Interact(HitActor);
 }
 
 void AMyriamCharacter::BeginOverlapInteraction(AActor* OtherActor)
@@ -201,10 +165,22 @@ void AMyriamCharacter::EndOverlapInteraction(AActor* OtherActor)
 
 void AMyriamCharacter::Interact(AActor* OtherActor)
 {	
-	if(OtherActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass()))
+	if(HitActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass()))
 	{
-		Cast<IInteractInterface>(OtherActor)->Interact(OtherActor);
+		Cast<IInteractInterface>(HitActor)->Interact(HitActor);
 	}
+
+	
+}
+
+TArray<FString> AMyriamCharacter::GetInventory() const
+{
+	return Inventory;
+}
+
+void AMyriamCharacter::AddItemToInventory(FString item)
+{
+	Inventory.Add(item);
 }
 
 TArray<AActor*> AMyriamCharacter::GetTargetPointList()
@@ -217,18 +193,7 @@ void AMyriamCharacter::OpenOrCloseDoor(AActor* Actor)
 	ADoor* Door=Cast<ADoor>(Actor);
 				Door->OpenDoor();
 
-				//Se aperta
-				if(Door->GetIsOpenDoor())
-				{
-					//chiudi
-					Door->SetIsOpenDoor(false);
-				}
-				else
-				//se chiusa
-				{	
-					//apri
-					Door->SetIsOpenDoor(true);
-				}
+				
 }
 
 

@@ -52,6 +52,9 @@ public:
 
 	virtual void Interact(AActor* OtherActor) override;
 
+	TArray<FString> GetInventory() const;
+	void AddItemToInventory(FString item);
+
 	
 
 private:
