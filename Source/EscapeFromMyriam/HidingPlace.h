@@ -36,14 +36,20 @@ private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = "Components",meta = (AllowPrivateAccess = "true"))
 	USceneComponent* InsideHidingLocation;
 
-	//position of the character when hidden
+	//position of the character before hiding
 	UPROPERTY(VisibleAnywhere)
 	FVector OutsideLocation;
+
+	//rotation of the character before hiding
+	UPROPERTY(VisibleAnywhere)
+	FRotator OutsideRotation;
 
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* Mesh;
 
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* VisibilityMesh;
+
+	bool bIsHidden=false;
 
 };

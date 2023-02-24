@@ -28,6 +28,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* FirstPersonCamera;
+
 	UPROPERTY(VisibleAnywhere,BlueprintReadWrite, Category="Inventory")
 	TArray<FString> Inventory;
 
@@ -54,6 +57,10 @@ public:
 
 	TArray<FString> GetInventory() const;
 	void AddItemToInventory(FString item);
+
+	UCameraComponent* GetCamera();
+	UCameraComponent* GetFirstPersonCamera();
+
 
 	
 

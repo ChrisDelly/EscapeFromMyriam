@@ -4,6 +4,9 @@
 #include "HidingPlace.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "MyriamCharacter.h"
+#include "MyriamPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AHidingPlace::AHidingPlace()
@@ -50,6 +53,38 @@ void AHidingPlace::EndOverlapInteraction(AActor* OtherActor)
 
 void AHidingPlace::Interact(AActor* OtherActor)
 {
-	UE_LOG(LogTemp,Warning,TEXT("HidingPlace interact"));
+	
+	AMyriamCharacter* MyriamPlayer = Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
+	APlayerController* MyriamController= UGameplayStatics::GetPlayerController(GetWorld(),0);
+
+	
+
+	//Set player location and rotation inside the spot Location
+	if(!bIsHidden)
+	{
+		//location before hiding, will be useful later by exiting the hiding spot
+		OutsideLocation=MyriamPlayer->GetActorLocation();
+		OutsideRotation=MyriamController->GetControlRotation();
+
+		MyriamPlayer->SetActorLocation(InsideHidingLocation->GetComponentLocation());
+		MyriamController->SetControlRotation(InsideHidingLocation->GetComponentRotation());
+	
+		//MyriamController->SetViewTarget(MyriamPlayer->GetFirstPersonCamera());
+
+		bIsHidden=true;
+	}
+	else
+	{
+		MyriamPlayer->SetActorLocation(OutsideLocation);
+		MyriamController->SetControlRotation(OutsideRotation);
+
+		//MyriamController->SetViewTarget(MyriamPlayer->GetFirstPersonCamera());
+
+		bIsHidden=false;
+	}
+
+
+
+	UE_LOG(LogTemp,Warning,TEXT("HidingPlace interact from"));
 }
 
