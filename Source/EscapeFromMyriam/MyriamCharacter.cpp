@@ -167,7 +167,7 @@ void AMyriamCharacter::Interact(AActor* OtherActor)
 {	
 	if(HitActor->GetClass()->ImplementsInterface(UInteractInterface::StaticClass()))
 	{
-		Cast<IInteractInterface>(HitActor)->Interact(HitActor);
+		Cast<IInteractInterface>(HitActor)->Interact(this);
 	}
 
 	
