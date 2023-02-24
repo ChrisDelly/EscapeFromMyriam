@@ -58,8 +58,7 @@ public:
 	TArray<FString> GetInventory() const;
 	void AddItemToInventory(FString item);
 
-	UCameraComponent* GetCamera();
-	UCameraComponent* GetFirstPersonCamera();
+	USpringArmComponent* GetSpringArm();
 
 
 	

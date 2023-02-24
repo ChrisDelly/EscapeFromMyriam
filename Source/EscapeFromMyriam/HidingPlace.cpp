@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 #include "MyriamCharacter.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "MyriamPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -56,7 +57,7 @@ void AHidingPlace::Interact(AActor* OtherActor)
 	
 	AMyriamCharacter* MyriamPlayer = Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
 	APlayerController* MyriamController= UGameplayStatics::GetPlayerController(GetWorld(),0);
-
+	USpringArmComponent* MyriamCamera= MyriamPlayer->GetSpringArm();
 	
 
 	//Set player location and rotation inside the spot Location
@@ -69,7 +70,12 @@ void AHidingPlace::Interact(AActor* OtherActor)
 		MyriamPlayer->SetActorLocation(InsideHidingLocation->GetComponentLocation());
 		MyriamController->SetControlRotation(InsideHidingLocation->GetComponentRotation());
 	
-		//MyriamController->SetViewTarget(MyriamPlayer->GetFirstPersonCamera());
+		
+		MyriamCamera->TargetArmLength=-20;
+		MyriamCamera->SetRelativeLocation(FVector(0,0,60));
+
+		MyriamPlayer->SetActorHiddenInGame(true);
+
 
 		bIsHidden=true;
 	}
@@ -78,7 +84,10 @@ void AHidingPlace::Interact(AActor* OtherActor)
 		MyriamPlayer->SetActorLocation(OutsideLocation);
 		MyriamController->SetControlRotation(OutsideRotation);
 
-		//MyriamController->SetViewTarget(MyriamPlayer->GetFirstPersonCamera());
+		MyriamCamera->TargetArmLength=180;
+		MyriamCamera->SetRelativeLocation(FVector(0,40,60));
+
+		MyriamPlayer->SetActorHiddenInGame(false);
 
 		bIsHidden=false;
 	}

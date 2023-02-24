@@ -26,9 +26,6 @@ AMyriamCharacter::AMyriamCharacter()
 	Camera=CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-	FirstPersonCamera=CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
-	FirstPersonCamera->SetupAttachment(RootComponent);
-
 	ObjectSpawnPoint=CreateDefaultSubobject<USceneComponent>(TEXT("Object Spawn Point"));
 	ObjectSpawnPoint->SetupAttachment(RootComponent);
 
@@ -186,14 +183,9 @@ void AMyriamCharacter::AddItemToInventory(FString item)
 	Inventory.Add(item);
 }
 
-UCameraComponent* AMyriamCharacter::GetCamera()
+USpringArmComponent* AMyriamCharacter::GetSpringArm()
 {
-	return Camera;
-}
-
-UCameraComponent* AMyriamCharacter::GetFirstPersonCamera()
-{
-	return FirstPersonCamera;
+	return SpringArm;
 }
 
 TArray<AActor*> AMyriamCharacter::GetTargetPointList()
