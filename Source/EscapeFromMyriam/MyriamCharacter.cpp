@@ -77,6 +77,10 @@ void AMyriamCharacter::Tick(float DeltaTime)
 
 		
 	}
+	else
+	{
+		HitActor=nullptr;
+	}
 	
 
 }

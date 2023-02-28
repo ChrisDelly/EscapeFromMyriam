@@ -79,6 +79,7 @@ void UBTService_UpdateObjTideLocation::OnOverlapEnd(class UPrimitiveComponent* O
 {
     if(ObjectToTide != nullptr)
     {
+        
         ObjectToTide=nullptr;
     }
 }
