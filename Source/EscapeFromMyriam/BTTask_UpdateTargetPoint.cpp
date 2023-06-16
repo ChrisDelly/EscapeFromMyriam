@@ -25,6 +25,12 @@ EBTNodeResult::Type UBTTask_UpdateTargetPoint::ExecuteTask(UBehaviorTreeComponen
 
     AMyriamCharacter* AIPawn=Cast<AMyriamCharacter>(OwnerComp.GetAIOwner()->GetPawn());
     TArray<AActor*>TargetList=AIPawn->GetTargetPointList();
+
+    if(TargetList.IsEmpty())
+    {
+        return EBTNodeResult::Failed;
+    }
+
     //se l-indice della lista ha valore pari alla grandezza della lista
     // impostalo al primo elemento della lista 
     if(TargetIndex == TargetList.Num() )

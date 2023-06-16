@@ -27,7 +27,7 @@ EBTNodeResult::Type UBTTask_SpawnObstacle::ExecuteTask(UBehaviorTreeComponent& O
         return EBTNodeResult::Failed;
     }
 
-    AIPawn->DropSomething();
+    AIPawn->Fire();
 
     return EBTNodeResult::Succeeded;
 }

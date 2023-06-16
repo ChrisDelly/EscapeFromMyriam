@@ -22,5 +22,11 @@ class ESCAPEFROMMYRIAM_API UBTService_UpdateLocationIfSeen : public UBTService_B
 
 	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
+	UPROPERTY(EditAnywhere)
+	float IncreasedMaxSpeed=600;
+
+	UPROPERTY(EditAnywhere)
+	float NormalMaxSpeed=450;
+
 	
 };

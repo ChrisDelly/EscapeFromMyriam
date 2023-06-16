@@ -1,5 +1,15 @@
 [
 	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BT_EndTheGame.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BT_EndTheGame.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
 		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTService_UpdateLocation.cpp",
 		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
@@ -36,6 +46,26 @@
 	},
 	{
 		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTTask_ClearBBdLastKnownLocation.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTTask_ClearObjectToTideLocation.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTTask_ClearObjectToTideLocation.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTTask_OpenDoor.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\BTTask_OpenDoor.h",
 		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
 	},
@@ -125,6 +155,36 @@
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
 	},
 	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\Grapple.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\Grapple.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\GrappleProjectile.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\GrappleProjectile.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\HeightBox.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\HeightBox.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
 		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\HidingPlace.cpp",
 		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
@@ -191,6 +251,26 @@
 	},
 	{
 		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\ObjectToTide.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\Tool.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\Tool.h",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\ToolsList.cpp",
+		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\Source\\EscapeFromMyriam\\ToolsList.h",
 		"command": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.33.31629\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\chris\\Documents\\Unreal Projects\\EscapeFromMyriam\\EscapeFromMyriam\\.vscode\\compileCommands_EscapeFromMyriam\\EscapeFromMyriam.211.rsp\"",
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
 	},

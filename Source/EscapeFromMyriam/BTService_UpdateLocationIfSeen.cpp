@@ -6,6 +6,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
 #include "MyriamCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 UBTService_UpdateLocationIfSeen::UBTService_UpdateLocationIfSeen()
 {
@@ -18,7 +19,13 @@ void UBTService_UpdateLocationIfSeen::TickNode(UBehaviorTreeComponent& OwnerComp
     Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
     APawn* PlayerPawn=UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+    AMyriamCharacter* MyriamPlayer=Cast<AMyriamCharacter>(OwnerComp.GetAIOwner()->GetPawn());
     if(PlayerPawn == nullptr)
+    {
+        return;
+    }
+
+     if(MyriamPlayer == nullptr)
     {
         return;
     }
@@ -31,10 +38,13 @@ void UBTService_UpdateLocationIfSeen::TickNode(UBehaviorTreeComponent& OwnerComp
     {
         OwnerComp.GetBlackboardComponent()->SetValueAsObject(GetSelectedBlackboardKey(),PlayerPawn);
         UE_LOG(LogTemp,Warning,TEXT("Visto"));
+        
+        MyriamPlayer->GetCharacterMovement()->MaxWalkSpeed=IncreasedMaxSpeed;
     }
     else
     {
         OwnerComp.GetBlackboardComponent()->ClearValue(GetSelectedBlackboardKey());
+        MyriamPlayer->GetCharacterMovement()->MaxWalkSpeed=NormalMaxSpeed;
     }
 
 

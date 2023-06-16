@@ -21,8 +21,8 @@ ADoor::ADoor()
 	LeftDoor=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Left Door"));
 	LeftDoor->SetupAttachment(DoorTriggerBox);
 
-
-	
+	DoorIAOpenRangeBox=CreateDefaultSubobject<UBoxComponent>(TEXT("IA Door Open Range Box"));
+	DoorIAOpenRangeBox ->SetupAttachment(RootComponent);
 
 }
 
@@ -119,6 +119,11 @@ void ADoor::Interact(AActor* OtherActor)
 	}
 
 	
+}
+
+UBoxComponent* ADoor::GetDoorIAOpenRangeBox()
+{
+	return DoorIAOpenRangeBox;
 }
 
 void ADoor::OpenOrCloseDoor()

@@ -37,13 +37,21 @@ public:
 
 	virtual void Interact(AActor* OtherActor) override;
 
+	
+
 private:
 
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
 	class UBoxComponent* DoorTriggerBox;
 
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
+	class UBoxComponent* DoorIAOpenRangeBox;
+
+	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* LeftDoor;
+
+
+
 
 
 	UPROPERTY(EditAnywhere)
@@ -56,4 +64,8 @@ private:
 	bool bIsOpen=false;
 
 	void OpenOrCloseDoor();
+
+	public:
+
+	UBoxComponent* GetDoorIAOpenRangeBox();
 };

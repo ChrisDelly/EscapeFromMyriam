@@ -43,7 +43,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void DropSomething();
+	void Fire();
 
 	void Action();
 
@@ -82,10 +82,6 @@ UPROPERTY(VisibleAnywhere)
 TArray<AActor*> TargetPointsList;
 
 
-UPROPERTY(EditAnywhere)
-TArray<TSubclassOf<AActor>> ObjectsToDropClass;
-
-int32 ObjectToDropIndex=0;
 
 UPROPERTY(EditAnywhere)
 float MaxGrabDistance =200;
@@ -97,6 +93,14 @@ UPROPERTY(VisibleAnywhere)
 AActor* HitActor;
 
 void OpenOrCloseDoor(AActor* Actor);
+
+
+UPROPERTY(EditAnywhere)
+class UToolsList* ToolsList;
+
+
+
+
 
 
 };

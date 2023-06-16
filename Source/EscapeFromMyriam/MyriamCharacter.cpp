@@ -10,7 +10,11 @@
 #include "ObjectToTide.h"
 #include "Math/UnrealMathUtility.h"
 #include "Components/SphereComponent.h"
+#include "Tool.h"
+#include "Grapple.h"
+#include "Heightbox.h"
 #include "DrawDebugHelpers.h"
+#include "ToolsList.h"
 #include "GameFramework/SpringArmComponent.h"
 
 
@@ -33,6 +37,8 @@ AMyriamCharacter::AMyriamCharacter()
 	SphereTrigger->SetupAttachment(RootComponent);
 	SphereTrigger->SetSphereRadius(300);
 
+	ToolsList=CreateDefaultSubobject<UToolsList>(TEXT("Tools List"));
+
 }
 
 
@@ -43,12 +49,14 @@ void AMyriamCharacter::BeginPlay()
 
 	UWorld* World = GetWorld();
 
-    if(World!=nullptr)
-    {
-        UGameplayStatics::GetAllActorsOfClass(World, ATargetPoint::StaticClass(), TargetPointsList);
-    }
+	if(World == nullptr)
+	{
+		return;
+	}
+   
+    UGameplayStatics::GetAllActorsOfClass(World, ATargetPoint::StaticClass(), TargetPointsList);
+	
 
-    
 	
 }
 
@@ -97,7 +105,7 @@ void AMyriamCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis(TEXT("Turn Right"),this, &APawn::AddControllerYawInput);
 
 	PlayerInputComponent->BindAction("Jump",EInputEvent::IE_Pressed,this,&ACharacter::Jump);
-	PlayerInputComponent->BindAction("DropSomething",EInputEvent::IE_Pressed,this,&AMyriamCharacter::DropSomething);
+	PlayerInputComponent->BindAction("Fire",EInputEvent::IE_Pressed,this,&AMyriamCharacter::Fire);
 	PlayerInputComponent->BindAction("Action",EInputEvent::IE_Pressed,this,&AMyriamCharacter::Action);
 
 }
@@ -114,28 +122,16 @@ void AMyriamCharacter::MoveRight(float AxisValue)
 
 
 
-void AMyriamCharacter::DropSomething()
+void AMyriamCharacter::Fire()
 {
-	if(ObjectsToDropClass.IsEmpty())
-	{
-		return;
-	}
-	
-	UWorld* World=GetWorld();
-	if(World == nullptr)
+
+
+	if(ToolsList == nullptr)
 	{
 		return;
 	}
 
-	FTransform SpawnTransform = GetActorTransform();
-	
-	ObjectToDropIndex=FMath::RandRange(0,ObjectsToDropClass.Num()-1);
-	
-	auto SpawnedObject = World->SpawnActor<AActor>(ObjectsToDropClass[ObjectToDropIndex],ObjectSpawnPoint->GetComponentLocation(),ObjectSpawnPoint->GetComponentRotation());
-
-	
-
-
+	ToolsList->UseTool();
 }
 
 void AMyriamCharacter::Action()
