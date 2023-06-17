@@ -18,6 +18,11 @@ class ESCAPEFROMMYRIAM_API AGrapple : public ATool
 	AGrapple();
 
 public:
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+
 	virtual void ToolActivate() override;
 
 	UPROPERTY(EditAnywhere)

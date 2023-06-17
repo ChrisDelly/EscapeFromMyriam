@@ -19,9 +19,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	void HitMesh(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit );
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	FVector GetGrappleProjectileHitLocation();
+	void SetGrappleProjectileHitLocation(FVector SetLocation);
+	
+	bool GetHasHit();
+	void SetHasHit(bool SetHasHit);
+
+	bool GetIsProjectileComingBack();
+	void SetIsProjectileComingBack(bool SetIsComingBack);
+
+	class UProjectileMovementComponent* GetProjectileMovementComponent();
 
 private:
 
@@ -29,7 +43,12 @@ private:
 	UStaticMeshComponent* GrappleProjectileMesh;
 
 	UPROPERTY(VisibleAnywhere,Category = "Movement")
-	class UProjectileMovementComponent* ProjectileMovementComponent;
+	 UProjectileMovementComponent* ProjectileMovementComponent;
 
+	FVector ProjectileHitLocation;
+
+	bool HasHit=false;
+
+	bool IsProjectileComingBack=false;
 
 };

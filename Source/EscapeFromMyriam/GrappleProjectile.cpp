@@ -19,6 +19,7 @@ AGrappleProjectile::AGrappleProjectile()
 	ProjectileMovementComponent->InitialSpeed=2000.f;
 	ProjectileMovementComponent->MaxSpeed=2000.f;
 
+
 }
 
 // Called when the game starts or when spawned
@@ -26,6 +27,14 @@ void AGrappleProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GrappleProjectileMesh->OnComponentHit.AddDynamic(this, &AGrappleProjectile::HitMesh);
+	
+}
+
+void AGrappleProjectile::HitMesh(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	ProjectileHitLocation = Hit.Location;
+	SetHasHit(true);
 }
 
 // Called every frame
@@ -33,5 +42,40 @@ void AGrappleProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+FVector AGrappleProjectile::GetGrappleProjectileHitLocation()
+{
+	return ProjectileHitLocation;
+}
+
+void AGrappleProjectile::SetGrappleProjectileHitLocation(FVector SetLocation)
+{
+	ProjectileHitLocation=SetLocation;
+}
+
+bool AGrappleProjectile::GetHasHit()
+{
+	return HasHit;
+}
+
+void AGrappleProjectile::SetHasHit(bool SetHasHit)
+{
+	HasHit=SetHasHit;
+}
+
+bool AGrappleProjectile::GetIsProjectileComingBack()
+{
+	return IsProjectileComingBack;
+}
+
+void AGrappleProjectile::SetIsProjectileComingBack(bool SetIsComingBack)
+{
+	IsProjectileComingBack=SetIsComingBack;
+}
+
+UProjectileMovementComponent* AGrappleProjectile::GetProjectileMovementComponent()
+{
+	return ProjectileMovementComponent;
 }
 
