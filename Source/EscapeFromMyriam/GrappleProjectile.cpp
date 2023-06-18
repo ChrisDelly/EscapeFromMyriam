@@ -19,6 +19,8 @@ AGrappleProjectile::AGrappleProjectile()
 	ProjectileMovementComponent->InitialSpeed=2000.f;
 	ProjectileMovementComponent->MaxSpeed=2000.f;
 
+	ProjectileMovementComponent->bSimulationEnabled=false;
+
 
 }
 

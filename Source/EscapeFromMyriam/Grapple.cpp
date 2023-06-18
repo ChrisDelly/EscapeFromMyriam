@@ -18,35 +18,53 @@ void AGrapple::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if(GrappleProjectile && GrappleProjectile->GetIsProjectileComingBack())
+	if(GrappleProjectile)
 	{
-		if(GrappleProjectile->GetActorLocation().Equals(GetActorLocation(),20.f))
+		if(GrappleProjectile->GetIsProjectileComingBack())
 		{
-			GrappleProjectile->Destroy();
-			GrappleProjectile=nullptr;
+			if(GrappleProjectile->GetActorLocation().Equals(GetActorLocation(),40.f))
+			{
+				GrappleProjectile->Destroy();
+				GrappleProjectile=nullptr;
+			}
+			else
+			{
+				//set new rotation 
+				FVector StartingCallBackLocation = GrappleProjectile->GetActorLocation();
+				FVector TargetCallBackLocation = GetActorLocation();
+				FRotator CallBackRotation=UKismetMathLibrary::FindLookAtRotation(StartingCallBackLocation, TargetCallBackLocation);
+				GrappleProjectile->SetActorRotation(CallBackRotation);
+
+				//Set actor direction
+				FVector ProjectileForwardVector =GrappleProjectile->GetActorForwardVector();
+				float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();
+			
+
+				FVector TargetCallBackDirection=StartingCallBackLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime ); 
+				UE_LOG(LogTemp,Warning,TEXT("Vettore direzione di ritorno %s"),*ProjectileForwardVector.ToString());
+
+				GrappleProjectile->SetActorLocation(TargetCallBackDirection);
+
+				
+			}
+			
+
 		}
 		else
 		{
-			//set new rotation 
-			FVector StartingCallBackLocation = GrappleProjectile->GetActorLocation();
-			FVector TargetCallBackLocation = GetActorLocation();
-			FRotator CallBackRotation=UKismetMathLibrary::FindLookAtRotation(StartingCallBackLocation, TargetCallBackLocation);
-			GrappleProjectile->SetActorRotation(CallBackRotation);
-
 			//Set actor direction
-			float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();
+			FVector StartingLocation = GrappleProjectile->GetActorLocation();
+			FVector ProjectileForwardVector =GrappleProjectile->GetActorForwardVector();
+			float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();		
 
-		
+			FVector TargetCallBackDirection=StartingLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime ); 
 
-			FVector TargetCallBackDirection=StartingCallBackLocation + (GrappleProjectile->GetActorForwardVector() * ProjectileSpeed * DeltaTime ); 
 			GrappleProjectile->SetActorLocation(TargetCallBackDirection);
-
-			
 		}
-		
 
 	}
 
+	
 }
 
 void AGrapple::ToolActivate() 
@@ -96,6 +114,8 @@ void AGrapple::ToolActivate()
 	{
 	//if grapple projectile does not exist spara uno nuovo	
 	GrappleProjectile=World->SpawnActor<AGrappleProjectile>(GrappleProjectileClass,GetActorLocation(),Rotation);
+
+	GrappleProjectile->SetOwner(this);
 	GrappleProjectile->SetIsProjectileComingBack(false);
 	}		
     
