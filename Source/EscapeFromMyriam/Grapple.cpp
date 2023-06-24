@@ -20,86 +20,10 @@ void AGrapple::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//mangage grapple coming back
-	if(GrappleProjectile)
-	{
-		if(GrappleProjectile->GetIsProjectileComingBack())
-		{
-			if(GrappleProjectile->GetActorLocation().Equals(GetActorLocation(),40.f))
-			{
-				GrappleProjectile->Destroy();
-				GrappleProjectile=nullptr;
-			}
-			else
-			{
-				//set new rotation 
-				FVector StartingCallBackLocation = GrappleProjectile->GetActorLocation();
-				FVector TargetCallBackLocation = GetActorLocation();
-				FRotator CallBackRotation=UKismetMathLibrary::FindLookAtRotation(StartingCallBackLocation, TargetCallBackLocation);
-				GrappleProjectile->SetActorRotation(CallBackRotation);
-
-				//Set actor direction
-				FVector ProjectileForwardVector =GrappleProjectile->GetActorForwardVector();
-				float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();
-			
-
-				FVector TargetCallBackDirection=StartingCallBackLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime ); 
-
-				GrappleProjectile->SetActorLocation(TargetCallBackDirection);
-
-				
-			}
-			
-
-		}
-		else
-		{
-			//Set actor direction
-			FVector StartingLocation = GrappleProjectile->GetActorLocation();
-			FVector ProjectileForwardVector =GrappleProjectile->GetActorForwardVector();
-			float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();		
-
-			FVector TargetCallBackDirection=StartingLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime ); 
-
-			GrappleProjectile->SetActorLocation(TargetCallBackDirection);
-
-		}
-
-	}
+	CallBackGrapple(DeltaTime);	
 
 	//manage character boing pulled towards grapple
-	if(IsCharacterBeingPulledToGrapple)
-	{
-		
-   		UE_LOG(LogTemp,Warning,TEXT("Pulling"));
-		AMyriamCharacter* Player = Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
-		if(Player  == nullptr)
-			return;		
-		if(!GrappleProjectile)
-			return;
-		
-		FVector StartingLocation=Player->GetActorLocation();
-
-		if(StartingLocation.Equals(GrappleProjectile->GetActorLocation(),100))
-		{
-			APlayerController* PlayerController=GetWorld()->GetFirstPlayerController();
-			if(PlayerController)
-			{
-				Player->EnableInput(PlayerController);
-				Player->GetMovementComponent()->SetMovementMode(EMovementMode::MOVE_Walking);
-			}
-			IsCharacterBeingPulledToGrapple=false;
-			GrappleProjectile->Destroy();
-			GrappleProjectile=nullptr;
-			return;
-			
-		}
-
-		FVector DirectionToTarget=GrappleProjectile->GetActorLocation()-StartingLocation;
-		DirectionToTarget.Normalize();
-		FVector TargetLocation= StartingLocation + (DirectionToTarget * CharacterPullSpeed * DeltaTime);
-		Player->SetActorLocation(TargetLocation);
-	}
-
+	PullPlayerToGrapple(DeltaTime);
 
 }
 
@@ -170,4 +94,89 @@ void AGrapple::ToolActivate()
 	}		
     
 
+}
+
+void AGrapple::PullPlayerToGrapple(float DeltaTime)
+{
+	if(IsCharacterBeingPulledToGrapple)
+	{
+		
+   		UE_LOG(LogTemp,Warning,TEXT("Pulling"));
+		AMyriamCharacter* Player = Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
+		if(Player  == nullptr)
+			return;		
+		if(!GrappleProjectile)
+			return;
+		
+		FVector StartingLocation=Player->GetActorLocation();
+
+		if(StartingLocation.Equals(GrappleProjectile->GetActorLocation(),100))
+		{
+			APlayerController* PlayerController=GetWorld()->GetFirstPlayerController();
+			if(PlayerController)
+			{
+				Player->EnableInput(PlayerController);
+				Player->GetMovementComponent()->SetMovementMode(EMovementMode::MOVE_Walking);
+			}
+			IsCharacterBeingPulledToGrapple=false;
+			GrappleProjectile->Destroy();
+			GrappleProjectile=nullptr;
+			return;
+			
+		}
+
+		FVector DirectionToTarget=GrappleProjectile->GetActorLocation()-StartingLocation;
+		DirectionToTarget.Normalize();
+		FVector TargetLocation= StartingLocation + (DirectionToTarget * CharacterPullSpeed * DeltaTime);
+		Player->SetActorLocation(TargetLocation);
+	}
+}
+
+void AGrapple::CallBackGrapple(float DeltaTime)
+{
+	if(GrappleProjectile)
+	{
+		if(GrappleProjectile->GetIsProjectileComingBack())
+		{
+			if(GrappleProjectile->GetActorLocation().Equals(GetActorLocation(),40.f))
+			{
+				GrappleProjectile->Destroy();
+				GrappleProjectile=nullptr;
+			}
+			else
+			{
+				//set new rotation 
+				FVector StartingCallBackLocation = GrappleProjectile->GetActorLocation();
+				FVector TargetCallBackLocation = GetActorLocation();
+				FRotator CallBackRotation=UKismetMathLibrary::FindLookAtRotation(StartingCallBackLocation, TargetCallBackLocation);
+				GrappleProjectile->SetActorRotation(CallBackRotation);
+
+				//Set actor direction
+				FVector ProjectileForwardVector =GrappleProjectile->GetActorForwardVector();
+				float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();
+			
+
+				FVector TargetCallBackDirection=StartingCallBackLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime); 
+
+				GrappleProjectile->SetActorLocation(TargetCallBackDirection);
+
+				
+			}
+			
+
+		}
+		else
+		{
+			//Set actor direction
+			FVector StartingLocation = GrappleProjectile->GetActorLocation();
+			FVector ProjectileForwardVector =GrappleProjectile->GetActorForwardVector();
+			float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();		
+
+			FVector TargetCallBackDirection=StartingLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime ); 
+
+			GrappleProjectile->SetActorLocation(TargetCallBackDirection);
+
+		}
+
+	}
 }

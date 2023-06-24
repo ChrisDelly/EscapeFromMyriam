@@ -37,4 +37,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	float CharacterPullSpeed=500.f;
+
+	void PullPlayerToGrapple(float DeltaTime);
+	void CallBackGrapple(float DeltaTime);
 };
