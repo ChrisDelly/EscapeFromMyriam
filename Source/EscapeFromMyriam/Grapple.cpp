@@ -6,6 +6,7 @@
 #include "MyriamCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GrappleProjectile.h"
 
 
@@ -18,6 +19,7 @@ void AGrapple::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//mangage grapple coming back
 	if(GrappleProjectile)
 	{
 		if(GrappleProjectile->GetIsProjectileComingBack())
@@ -41,7 +43,6 @@ void AGrapple::Tick(float DeltaTime)
 			
 
 				FVector TargetCallBackDirection=StartingCallBackLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime ); 
-				UE_LOG(LogTemp,Warning,TEXT("Vettore direzione di ritorno %s"),*ProjectileForwardVector.ToString());
 
 				GrappleProjectile->SetActorLocation(TargetCallBackDirection);
 
@@ -60,11 +61,46 @@ void AGrapple::Tick(float DeltaTime)
 			FVector TargetCallBackDirection=StartingLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime ); 
 
 			GrappleProjectile->SetActorLocation(TargetCallBackDirection);
+
 		}
 
 	}
 
-	
+	//manage character boing pulled towards grapple
+	if(IsCharacterBeingPulledToGrapple)
+	{
+		
+   		UE_LOG(LogTemp,Warning,TEXT("Pulling"));
+		AMyriamCharacter* Player = Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
+		if(Player  == nullptr)
+			return;		
+		if(!GrappleProjectile)
+			return;
+		
+		FVector StartingLocation=Player->GetActorLocation();
+
+		if(StartingLocation.Equals(GrappleProjectile->GetActorLocation(),100))
+		{
+			APlayerController* PlayerController=GetWorld()->GetFirstPlayerController();
+			if(PlayerController)
+			{
+				Player->EnableInput(PlayerController);
+				Player->GetMovementComponent()->SetMovementMode(EMovementMode::MOVE_Walking);
+			}
+			IsCharacterBeingPulledToGrapple=false;
+			GrappleProjectile->Destroy();
+			GrappleProjectile=nullptr;
+			return;
+			
+		}
+
+		FVector DirectionToTarget=GrappleProjectile->GetActorLocation()-StartingLocation;
+		DirectionToTarget.Normalize();
+		FVector TargetLocation= StartingLocation + (DirectionToTarget * CharacterPullSpeed * DeltaTime);
+		Player->SetActorLocation(TargetLocation);
+	}
+
+
 }
 
 void AGrapple::ToolActivate() 
@@ -80,12 +116,16 @@ void AGrapple::ToolActivate()
 	}
 
     AMyriamCharacter* Player = Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(World,0));
+	if(Player  == nullptr)
+		return;
     AController* OwnerController=Player->GetController();
 	if(OwnerController == nullptr) 
 	    return;
 
 	FVector Location;
 	FRotator Rotation;
+
+	//shooting direction where thw player is looking
 	OwnerController->GetPlayerViewPoint( Location, Rotation );
 
 
@@ -97,16 +137,26 @@ void AGrapple::ToolActivate()
 			//call it back, set new direction towards the hand
 			//managed in tick
 			GrappleProjectile->SetIsProjectileComingBack(true);
-			UE_LOG(LogTemp,Warning,TEXT("Call back Grapple"));			
-
+			UE_LOG(LogTemp,Warning,TEXT("Call back Grapple"));		
 			
 
 		}
 		else
 		{
-			UE_LOG(LogTemp,Warning,TEXT("Grapple attachet to wall"));	
-				//if it's attached to a wall 
+			UE_LOG(LogTemp,Warning,TEXT("Grapple attached to wall"));	
+			//if it's attached to a wall 
 			//pull the character to the grapple projectile
+			//managed movement in tick
+			IsCharacterBeingPulledToGrapple=true;
+			APlayerController* PlayerController=GetWorld()->GetFirstPlayerController();
+			if(PlayerController)
+			{
+				Player->DisableInput(PlayerController);
+				Player->GetMovementComponent()->SetMovementMode(EMovementMode::MOVE_Flying);
+			}
+				
+				
+
 		}
 	
 	}

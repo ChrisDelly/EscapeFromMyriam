@@ -3,6 +3,9 @@
 
 #include "GrappleProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Components/SphereComponent.h"
+#include "MyriamCharacter.h"
+#include "Grapple.h"
 
 
 // Sets default values
@@ -13,6 +16,9 @@ AGrappleProjectile::AGrappleProjectile()
 
 	GrappleProjectileMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GrappleProjectile Mesh"));
 	RootComponent=GrappleProjectileMesh;
+
+	SphereTrigger =CreateDefaultSubobject<USphereComponent>(TEXT("Sphere collision"));
+	SphereTrigger->SetupAttachment(GrappleProjectileMesh);
 
 
 	ProjectileMovementComponent=CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("GrappleProjectile Movement Component"));
@@ -29,6 +35,7 @@ void AGrappleProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GrappleProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &AGrappleProjectile::OverlapBegin);
 	GrappleProjectileMesh->OnComponentHit.AddDynamic(this, &AGrappleProjectile::HitMesh);
 	
 }
@@ -36,7 +43,23 @@ void AGrappleProjectile::BeginPlay()
 void AGrappleProjectile::HitMesh(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	ProjectileHitLocation = Hit.Location;
+	UE_LOG(LogTemp,Warning,TEXT("Hit!"));
 	SetHasHit(true);
+}
+
+void AGrappleProjectile::OverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if(OtherActor != nullptr
+	&& !(OtherActor->IsA(AMyriamCharacter::StaticClass())) 
+	&& !(OtherActor->IsA(AGrapple::StaticClass())) 
+	&& !(OtherActor->IsA(AGrappleProjectile::StaticClass()))
+	)
+	{
+		ProjectileMovementComponent->MaxSpeed=0.0000000000001;
+		UE_LOG(LogTemp,Warning,TEXT("Overlap! %s"),*OtherActor->GetName());
+		SetHasHit(true);
+	}
+	
 }
 
 // Called every frame

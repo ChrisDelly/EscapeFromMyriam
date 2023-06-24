@@ -29,4 +29,12 @@ public:
 	TSubclassOf<class AGrappleProjectile> GrappleProjectileClass;
 
 	AGrappleProjectile* GrappleProjectile;	
+
+
+	private:
+	
+	bool IsCharacterBeingPulledToGrapple=false;
+
+	UPROPERTY(EditAnywhere)
+	float CharacterPullSpeed=500.f;
 };

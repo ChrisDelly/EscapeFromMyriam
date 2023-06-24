@@ -60,6 +60,8 @@ public:
 
 	USpringArmComponent* GetSpringArm();
 
+	UCharacterMovementComponent* GetMovementComponent();
+
 
 	
 

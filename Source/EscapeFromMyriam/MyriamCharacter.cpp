@@ -188,6 +188,11 @@ USpringArmComponent* AMyriamCharacter::GetSpringArm()
 	return SpringArm;
 }
 
+UCharacterMovementComponent* AMyriamCharacter::GetMovementComponent()
+{
+	return GetCharacterMovement();
+}
+
 TArray<AActor*> AMyriamCharacter::GetTargetPointList()
 {
 	return TargetPointsList;
