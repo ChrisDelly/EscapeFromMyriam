@@ -25,6 +25,8 @@ AGrappleProjectile::AGrappleProjectile()
 	ProjectileMovementComponent->InitialSpeed=2000.f;
 	ProjectileMovementComponent->MaxSpeed=2000.f;
 
+	ProjectileSpeed=ProjectileMovementComponent->MaxSpeed;
+
 	ProjectileMovementComponent->bSimulationEnabled=false;
 
 
@@ -97,6 +99,26 @@ bool AGrappleProjectile::GetIsProjectileComingBack()
 void AGrappleProjectile::SetIsProjectileComingBack(bool SetIsComingBack)
 {
 	IsProjectileComingBack=SetIsComingBack;
+}
+
+bool AGrappleProjectile::GetIsProjectileMoving()
+{
+	return IsProjectileMoving;
+}
+
+void AGrappleProjectile::SetIsProjectileMoving(bool SetMoving)
+{
+	IsProjectileMoving=SetMoving;
+}
+
+float AGrappleProjectile::GetProjectileMaxSpeed()
+{
+	return ProjectileSpeed;
+}
+
+void AGrappleProjectile::SetProjectileMaxSpeed()
+{
+	ProjectileMovementComponent->MaxSpeed=ProjectileSpeed;
 }
 
 UProjectileMovementComponent* AGrappleProjectile::GetProjectileMovementComponent()

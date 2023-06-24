@@ -38,6 +38,11 @@ public:
 	bool GetIsProjectileComingBack();
 	void SetIsProjectileComingBack(bool SetIsComingBack);
 
+	bool GetIsProjectileMoving();
+	void SetIsProjectileMoving(bool SetMoving);
+
+	float GetProjectileMaxSpeed();
+	void SetProjectileMaxSpeed();
 	
 
 	class UProjectileMovementComponent* GetProjectileMovementComponent();
@@ -55,9 +60,12 @@ private:
 	bool HasHit=false;
 
 	bool IsProjectileComingBack=false;
+	bool IsProjectileMoving=false;
 
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
 	class USphereComponent* SphereTrigger;
+
+	float ProjectileSpeed;
 
 	
 };

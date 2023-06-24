@@ -12,12 +12,23 @@
 
 AGrapple::AGrapple()
 {
-
+	
 }
 
 void AGrapple::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//ferma il rampino se si sta muovendo e se va oltre la distanza massima
+	if(GrappleProjectile && GrappleProjectile->GetIsProjectileMoving())
+	{
+		CurrentDistanceFromGrapple=FVector::Dist(GetActorLocation(),GrappleProjectile->GetActorLocation());
+		if(CurrentDistanceFromGrapple>=GrappleMaxDistance)
+		{
+			GrappleProjectile->GetProjectileMovementComponent()->MaxSpeed=0.0000000000001;
+			GrappleProjectile->SetIsProjectileMoving(false);
+		}
+	}
 
 	//mangage grapple coming back
 	CallBackGrapple(DeltaTime);	
@@ -61,7 +72,9 @@ void AGrapple::ToolActivate()
 			//call it back, set new direction towards the hand
 			//managed in tick
 			GrappleProjectile->SetIsProjectileComingBack(true);
-			UE_LOG(LogTemp,Warning,TEXT("Call back Grapple"));		
+			GrappleProjectile->GetProjectileMaxSpeed();
+			UE_LOG(LogTemp,Warning,TEXT("Call back Grapple"));	
+			GrappleProjectile->SetProjectileMaxSpeed();
 			
 
 		}
@@ -88,6 +101,7 @@ void AGrapple::ToolActivate()
 	{
 	//if grapple projectile does not exist spara uno nuovo	
 	GrappleProjectile=World->SpawnActor<AGrappleProjectile>(GrappleProjectileClass,GetActorLocation(),Rotation);
+	GrappleProjectile->SetIsProjectileMoving(true);
 
 	GrappleProjectile->SetOwner(this);
 	GrappleProjectile->SetIsProjectileComingBack(false);

@@ -40,4 +40,10 @@ public:
 
 	void PullPlayerToGrapple(float DeltaTime);
 	void CallBackGrapple(float DeltaTime);
+
+	UPROPERTY(EditAnywhere)
+	float GrappleMaxDistance=1500.f;
+
+	UPROPERTY(VisibleAnywhere)
+	float CurrentDistanceFromGrapple;
 };
