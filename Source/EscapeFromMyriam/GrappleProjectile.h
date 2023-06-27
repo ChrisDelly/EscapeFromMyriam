@@ -44,6 +44,7 @@ public:
 	float GetProjectileMaxSpeed();
 	void SetProjectileMaxSpeed();
 	
+	class UCableComponent* GetGrappleProjectileCable();
 
 	class UProjectileMovementComponent* GetProjectileMovementComponent();
 
@@ -66,6 +67,9 @@ private:
 	class USphereComponent* SphereTrigger;
 
 	float ProjectileSpeed;
+
+	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
+	UCableComponent* GrappleProjectileCable;
 
 	
 };

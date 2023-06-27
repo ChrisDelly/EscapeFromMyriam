@@ -46,4 +46,11 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	float CurrentDistanceFromGrapple;
+
+	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
+	class UCableComponent* GrappleCable;
+
+	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* GrappleMesh;
+
 };

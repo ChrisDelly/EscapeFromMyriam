@@ -7,12 +7,21 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "CableComponent.h"
 #include "GrappleProjectile.h"
+
 
 
 AGrapple::AGrapple()
 {
+	GrappleMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Grapple Mesh"));
+	RootComponent=GrappleMesh;
+
+	GrappleCable=CreateDefaultSubobject<UCableComponent>(TEXT("Grapple Cable"));
+	GrappleCable->SetupAttachment(GrappleMesh);
+	GrappleCable->ToggleVisibility();
 	
+
 }
 
 void AGrapple::Tick(float DeltaTime)
@@ -26,7 +35,7 @@ void AGrapple::Tick(float DeltaTime)
 		if(CurrentDistanceFromGrapple>=GrappleMaxDistance)
 		{
 			GrappleProjectile->GetProjectileMovementComponent()->MaxSpeed=0.0000000000001;
-			GrappleProjectile->SetIsProjectileMoving(false);
+			GrappleProjectile->SetIsProjectileMoving(false);			
 		}
 	}
 
@@ -100,8 +109,16 @@ void AGrapple::ToolActivate()
 	else
 	{
 	//if grapple projectile does not exist spara uno nuovo	
+	GrappleCable->ToggleVisibility();
 	GrappleProjectile=World->SpawnActor<AGrappleProjectile>(GrappleProjectileClass,GetActorLocation(),Rotation);
 	GrappleProjectile->SetIsProjectileMoving(true);
+
+	if(GrappleProjectile){
+		GrappleCable->bAttachEnd=true;
+		GrappleCable->SetAttachEndToComponent(GrappleProjectile->GetGrappleProjectileCable());
+	}
+	
+		
 
 	GrappleProjectile->SetOwner(this);
 	GrappleProjectile->SetIsProjectileComingBack(false);
@@ -132,6 +149,7 @@ void AGrapple::PullPlayerToGrapple(float DeltaTime)
 				Player->EnableInput(PlayerController);
 				Player->GetMovementComponent()->SetMovementMode(EMovementMode::MOVE_Walking);
 			}
+			GrappleCable->ToggleVisibility();
 			IsCharacterBeingPulledToGrapple=false;
 			GrappleProjectile->Destroy();
 			GrappleProjectile=nullptr;
@@ -153,7 +171,8 @@ void AGrapple::CallBackGrapple(float DeltaTime)
 		if(GrappleProjectile->GetIsProjectileComingBack())
 		{
 			if(GrappleProjectile->GetActorLocation().Equals(GetActorLocation(),40.f))
-			{
+			{	
+				GrappleCable->ToggleVisibility();
 				GrappleProjectile->Destroy();
 				GrappleProjectile=nullptr;
 			}
@@ -173,6 +192,9 @@ void AGrapple::CallBackGrapple(float DeltaTime)
 				FVector TargetCallBackDirection=StartingCallBackLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime); 
 
 				GrappleProjectile->SetActorLocation(TargetCallBackDirection);
+				//GrappleCable->SetAttachEndTo(GrappleProjectile,TEXT("GrappleProjectile Mesh"));
+				//GrappleCable->EndLocation=GrappleProjectile->GetActorLocation();
+				
 
 				
 			}

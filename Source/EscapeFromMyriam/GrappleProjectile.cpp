@@ -5,6 +5,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 #include "MyriamCharacter.h"
+#include "CableComponent.h"
 #include "Grapple.h"
 
 
@@ -28,6 +29,10 @@ AGrappleProjectile::AGrappleProjectile()
 	ProjectileSpeed=ProjectileMovementComponent->MaxSpeed;
 
 	ProjectileMovementComponent->bSimulationEnabled=false;
+
+	GrappleProjectileCable=CreateDefaultSubobject<UCableComponent>(TEXT("Grapple projectile Cable"));
+	GrappleProjectileCable->SetupAttachment(GrappleProjectileMesh);
+	GrappleProjectileCable->SetVisibility(false);
 
 
 }
@@ -119,6 +124,11 @@ float AGrappleProjectile::GetProjectileMaxSpeed()
 void AGrappleProjectile::SetProjectileMaxSpeed()
 {
 	ProjectileMovementComponent->MaxSpeed=ProjectileSpeed;
+}
+
+class UCableComponent* AGrappleProjectile::GetGrappleProjectileCable()
+{
+	return GrappleProjectileCable;
 }
 
 UProjectileMovementComponent* AGrappleProjectile::GetProjectileMovementComponent()
