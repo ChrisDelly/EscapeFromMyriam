@@ -62,6 +62,9 @@ public:
 
 	UCharacterMovementComponent* GetMovementComponent();
 
+	void StartSprint();
+	void EndSprint();
+	void RechargeStamina(float DeltaTime);
 
 	
 
@@ -84,7 +87,6 @@ UPROPERTY(VisibleAnywhere)
 TArray<AActor*> TargetPointsList;
 
 
-
 UPROPERTY(EditAnywhere)
 float MaxGrabDistance =200;
 
@@ -96,12 +98,27 @@ AActor* HitActor;
 
 void OpenOrCloseDoor(AActor* Actor);
 
+void ConsumeStamina(float DeltaTime);
+
 
 UPROPERTY(EditAnywhere)
 class UToolsList* ToolsList;
 
+UPROPERTY(EditAnywhere)
+float SprintSpeedAmount=300;
+
+UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+float MaxStamina=100;
+
+UPROPERTY(BlueprintReadOnly,meta = (AllowPrivateAccess = "true"))
+float CurrentStamina;
+
+UPROPERTY(EditAnywhere)
+float StaminaConsumptionAmount=20;
 
 
+UPROPERTY(VisibleAnywhere)
+bool IsSprinting=false;
 
 
 

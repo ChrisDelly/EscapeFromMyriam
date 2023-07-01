@@ -15,6 +15,7 @@
 #include "Heightbox.h"
 #include "DrawDebugHelpers.h"
 #include "ToolsList.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
 
@@ -38,6 +39,8 @@ AMyriamCharacter::AMyriamCharacter()
 	SphereTrigger->SetSphereRadius(300);
 
 	ToolsList=CreateDefaultSubobject<UToolsList>(TEXT("Tools List"));
+
+	CurrentStamina=MaxStamina;
 
 }
 
@@ -90,7 +93,16 @@ void AMyriamCharacter::Tick(float DeltaTime)
 		HitActor=nullptr;
 	}
 	
-
+	if(IsSprinting)
+	{
+		ConsumeStamina(DeltaTime);
+	}
+	else
+	{
+		RechargeStamina(DeltaTime);
+	}
+	
+	
 }
 
 // Called to bind functionality to input
@@ -107,6 +119,11 @@ void AMyriamCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Jump",EInputEvent::IE_Pressed,this,&ACharacter::Jump);
 	PlayerInputComponent->BindAction("Fire",EInputEvent::IE_Pressed,this,&AMyriamCharacter::Fire);
 	PlayerInputComponent->BindAction("Action",EInputEvent::IE_Pressed,this,&AMyriamCharacter::Action);
+
+	PlayerInputComponent->BindAction("Sprint",EInputEvent::IE_Pressed,this,&AMyriamCharacter::StartSprint);
+	PlayerInputComponent->BindAction("Sprint",EInputEvent::IE_Released,this,&AMyriamCharacter::EndSprint);
+
+
 
 }
 
@@ -193,6 +210,20 @@ UCharacterMovementComponent* AMyriamCharacter::GetMovementComponent()
 	return GetCharacterMovement();
 }
 
+void AMyriamCharacter::StartSprint()
+{
+	GetMovementComponent()->MaxWalkSpeed+=SprintSpeedAmount;
+	IsSprinting=true;
+}
+
+void AMyriamCharacter::EndSprint()
+{
+	GetMovementComponent()->MaxWalkSpeed-=SprintSpeedAmount;
+	IsSprinting=false;
+}
+
+
+
 TArray<AActor*> AMyriamCharacter::GetTargetPointList()
 {
 	return TargetPointsList;
@@ -201,11 +232,39 @@ TArray<AActor*> AMyriamCharacter::GetTargetPointList()
 void AMyriamCharacter::OpenOrCloseDoor(AActor* Actor)
 {
 	ADoor* Door=Cast<ADoor>(Actor);
-				Door->OpenDoor();
+	Door->OpenDoor();
 
 				
 }
 
+void AMyriamCharacter::ConsumeStamina(float DeltaTime)
+{
+	
+	if(CurrentStamina-StaminaConsumptionAmount*DeltaTime<=0)
+	{
+		CurrentStamina=0;
+		IsSprinting=false;
+	}
+	else
+	{
+		CurrentStamina-=StaminaConsumptionAmount*DeltaTime;
+	}
+	
+	
+}
+
+void AMyriamCharacter::RechargeStamina(float DeltaTime)
+{
+	if(CurrentStamina+StaminaConsumptionAmount*DeltaTime>=MaxStamina)
+	{
+		CurrentStamina=MaxStamina;		
+	}
+	else
+	{
+		CurrentStamina+=StaminaConsumptionAmount*DeltaTime;
+	}
+	
+}
 
 
 USphereComponent* AMyriamCharacter::GetSphereTrigger()

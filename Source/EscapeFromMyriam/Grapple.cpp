@@ -8,6 +8,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "CableComponent.h"
+#include "Sound/SoundBase.h"
 #include "GrappleProjectile.h"
 
 
@@ -20,7 +21,6 @@ AGrapple::AGrapple()
 	GrappleCable=CreateDefaultSubobject<UCableComponent>(TEXT("Grapple Cable"));
 	GrappleCable->SetupAttachment(GrappleMesh);
 	GrappleCable->ToggleVisibility();
-	
 
 }
 
@@ -29,15 +29,7 @@ void AGrapple::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//ferma il rampino se si sta muovendo e se va oltre la distanza massima
-	if(GrappleProjectile && GrappleProjectile->GetIsProjectileMoving())
-	{
-		CurrentDistanceFromGrapple=FVector::Dist(GetActorLocation(),GrappleProjectile->GetActorLocation());
-		if(CurrentDistanceFromGrapple>=GrappleMaxDistance)
-		{
-			GrappleProjectile->GetProjectileMovementComponent()->MaxSpeed=0.0000000000001;
-			GrappleProjectile->SetIsProjectileMoving(false);			
-		}
-	}
+	StopGrappleRun(DeltaTime);
 
 	//mangage grapple coming back
 	CallBackGrapple(DeltaTime);	
@@ -66,10 +58,11 @@ void AGrapple::ToolActivate()
 	if(OwnerController == nullptr) 
 	    return;
 
-	FVector Location;
-	FRotator Rotation;
+	
 
 	//shooting direction where thw player is looking
+	FVector Location;
+	FRotator Rotation;
 	OwnerController->GetPlayerViewPoint( Location, Rotation );
 
 
@@ -84,8 +77,6 @@ void AGrapple::ToolActivate()
 			GrappleProjectile->GetProjectileMaxSpeed();
 			UE_LOG(LogTemp,Warning,TEXT("Call back Grapple"));	
 			GrappleProjectile->SetProjectileMaxSpeed();
-			
-
 		}
 		else
 		{
@@ -99,10 +90,7 @@ void AGrapple::ToolActivate()
 			{
 				Player->DisableInput(PlayerController);
 				Player->GetMovementComponent()->SetMovementMode(EMovementMode::MOVE_Flying);
-			}
-				
-				
-
+			}				
 		}
 	
 	}
@@ -113,15 +101,20 @@ void AGrapple::ToolActivate()
 	GrappleProjectile=World->SpawnActor<AGrappleProjectile>(GrappleProjectileClass,GetActorLocation(),Rotation);
 	GrappleProjectile->SetIsProjectileMoving(true);
 
+	UGameplayStatics::PlaySoundAtLocation(World,GrappleLaunchSound,GetActorLocation());
+
+
 	if(GrappleProjectile){
 		GrappleCable->bAttachEnd=true;
 		GrappleCable->SetAttachEndToComponent(GrappleProjectile->GetGrappleProjectileCable());
-	}
-	
-		
 
-	GrappleProjectile->SetOwner(this);
-	GrappleProjectile->SetIsProjectileComingBack(false);
+		GrappleProjectile->SetOwner(this);
+		GrappleProjectile->SetIsProjectileComingBack(false);
+		
+	
+	}		
+
+	
 	}		
     
 
@@ -186,16 +179,11 @@ void AGrapple::CallBackGrapple(float DeltaTime)
 
 				//Set actor direction
 				FVector ProjectileForwardVector =GrappleProjectile->GetActorForwardVector();
-				float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();
-			
+				float ProjectileSpeed=GrappleProjectile->GetProjectileMovementComponent()->GetMaxSpeed();			
 
 				FVector TargetCallBackDirection=StartingCallBackLocation + (ProjectileForwardVector * ProjectileSpeed * DeltaTime); 
 
 				GrappleProjectile->SetActorLocation(TargetCallBackDirection);
-				//GrappleCable->SetAttachEndTo(GrappleProjectile,TEXT("GrappleProjectile Mesh"));
-				//GrappleCable->EndLocation=GrappleProjectile->GetActorLocation();
-				
-
 				
 			}
 			
@@ -214,5 +202,22 @@ void AGrapple::CallBackGrapple(float DeltaTime)
 
 		}
 
+	}
+}
+
+void AGrapple::StopGrappleRun(float DeltaTime)
+{
+	if(GrappleProjectile && GrappleProjectile->GetIsProjectileMoving())
+	{
+		CurrentDistanceFromGrapple=FVector::Dist(GetActorLocation(),GrappleProjectile->GetActorLocation());
+		if(CurrentDistanceFromGrapple>=GrappleMaxDistance)
+		{
+			GrappleCable->ToggleVisibility();
+			GrappleCable->SetAttachEndToComponent(GrappleCable);
+			GrappleProjectile->Destroy();
+			GrappleProjectile=nullptr;
+			//GrappleProjectile->GetProjectileMovementComponent()->MaxSpeed=0.0000000000001;
+			//GrappleProjectile->SetIsProjectileMoving(false);			
+		}
 	}
 }

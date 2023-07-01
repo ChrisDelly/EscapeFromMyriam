@@ -40,6 +40,7 @@ public:
 
 	void PullPlayerToGrapple(float DeltaTime);
 	void CallBackGrapple(float DeltaTime);
+	void StopGrappleRun(float DeltaTime);
 
 	UPROPERTY(EditAnywhere)
 	float GrappleMaxDistance=1500.f;
@@ -52,5 +53,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere,  meta=(AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* GrappleMesh;
+
+	UPROPERTY(EditAnywhere)
+	class USoundBase* GrappleLaunchSound;
 
 };
