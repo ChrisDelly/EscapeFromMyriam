@@ -26,8 +26,8 @@ void ATelekinesis::ToolActivate()
 {
     AMyriamCharacter* Player=Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
 
-    //if(Player == nullptr)
-    //    return;
+    if(Player == nullptr)
+        return;
     
     ObjectToGrab=HitComponent;
     //If grab is active release the object/actor currently grabbed
@@ -47,46 +47,34 @@ void ATelekinesis::ToolActivate()
     }
     else
     {
-         //if the object/actor can be grabbed, grab it
-       
+         //if the object/actor can be grabbed, grab it       
         if (ObjectToGrab == nullptr)
         {
             UE_LOG(LogTemp,Warning,TEXT("Can't grab"));    
             return;
-        }else 
-        //if  (ObjectToGrab->ComponentHasTag(TEXT("Grabbable")))
+        }
+        else 
         {                   
             IsGrabActive = true;
-            UE_LOG(LogTemp,Warning,TEXT("componente %s"),*ObjectToGrab->GetName() );   
-            UE_LOG(LogTemp,Warning,TEXT("Grab"));
+            UE_LOG(LogTemp,Warning,TEXT("Grab component %s"),*ObjectToGrab->GetName() );  
 
             UPhysicsHandleComponent* PhysicsHandle = GetPhysicsHandle();
-            if(PhysicsHandle==nullptr) return;
-                    
-        //FHitResult HitResult;
-        //bool HasHit = GetGrabbableInReach(HitResult);
+            if(PhysicsHandle==nullptr) return;                    
 
-        if (HitComponent && HitActor)
-            {
-                //UPrimitiveComponent* HittedComponent=HitResult.GetComponent();
-                HitComponent->SetSimulatePhysics(true);
-                HitComponent->WakeAllRigidBodies();
-
-                HitActor->Tags.Add("Grabbed");
-                HitActor->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
-                PhysicsHandle->GrabComponentAtLocationWithRotation(
-                    HitComponent,
-                    NAME_None,
-                    HitActor->GetActorLocation(),
-                    GetActorRotation()
-                );
-            }else
-            {
-            //UE_LOG(LogTemp, Warning, TEXT("no Hit Actor"));
-            }
-            
-        }
-        
+            if (HitComponent && HitActor)
+                {                    
+                    HitComponent->SetSimulatePhysics(true);
+                    HitComponent->WakeAllRigidBodies();
+                    HitActor->Tags.Add("Grabbed");
+                    HitActor->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+                    PhysicsHandle->GrabComponentAtLocationWithRotation(
+                        HitComponent,
+                        NAME_None,
+                        HitActor->GetActorLocation(),
+                        GetActorRotation()
+                    );
+                }        
+        }        
     }
 }
 
@@ -100,28 +88,6 @@ UPhysicsHandleComponent* ATelekinesis::GetPhysicsHandle() const
 	}	
 		return Result;
 
-}
-
-
-bool ATelekinesis::GetGrabbableInReach(FHitResult &OutHitResult) const
-{ 
-    AMyriamCharacter* Player=Cast<AMyriamCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0)); 
-
-	FVector Start =Player->GetActorLocation();
-	FVector End = Start  + GetActorForwardVector() * MaxGrabDistance ;	
-
-	FCollisionShape Sphere= FCollisionShape::MakeSphere(GrabRadius);
-		
-    return GetWorld()->SweepSingleByChannel(
-        OutHitResult,
-        Start,End,
-        FQuat::Identity, //No Rotation
-        ECC_GameTraceChannel2,
-        Sphere
-        );
-
-    
-	
 }
 
 void ATelekinesis::ManageLineTraceTelekinesis()
@@ -140,7 +106,7 @@ void ATelekinesis::ManageLineTraceTelekinesis()
 	FCollisionShape::MakeSphere(GrabRadius)
 	);
 
-    DrawDebugSphere(GetWorld(),HitResult.Location,20,12,FColor::Red,false,2);
+    //DrawDebugSphere(GetWorld(),HitResult.Location,20,12,FColor::Red,false,2);
 
 	if(HasHit)
 	{

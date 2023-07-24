@@ -35,8 +35,6 @@ class ESCAPEFROMMYRIAM_API ATelekinesis : public ATool
 
 	class UPhysicsHandleComponent* GetPhysicsHandle() const;
 
-	bool GetGrabbableInReach(FHitResult &OutHitResult) const;
-
 	UPROPERTY(EditAnywhere)
 	float MaxGrabDistance = 500;
 
@@ -44,7 +42,7 @@ class ESCAPEFROMMYRIAM_API ATelekinesis : public ATool
 	float GrabRadius = 80;
 
 	UPROPERTY(EditAnywhere)
-	float HoldDistance = 400;
+	float HoldDistance = 80;
 
 	UPROPERTY(VisibleAnywhere)
 	AActor* HitActor;
