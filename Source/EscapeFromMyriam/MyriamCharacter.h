@@ -66,6 +66,8 @@ public:
 	void EndSprint();
 	void RechargeStamina(float DeltaTime);
 
+	UPrimitiveComponent* GetHitComponent() const;
+
 	
 
 private:
@@ -95,6 +97,9 @@ float SweepSize=70;
 
 UPROPERTY(VisibleAnywhere)
 AActor* HitActor;
+
+UPROPERTY(VisibleAnywhere)
+UPrimitiveComponent* HitComponent;
 
 void OpenOrCloseDoor(AActor* Actor);
 

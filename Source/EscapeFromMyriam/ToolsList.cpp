@@ -5,6 +5,7 @@
 #include "Tool.h"
 #include "MyriamCharacter.h"
 #include "Grapple.h"
+#include "Telekinesis.h"
 
 // Sets default values for this component's properties
 UToolsList::UToolsList()
@@ -34,7 +35,7 @@ void UToolsList::BeginPlay()
 		return;	
 	}
 
-	Grapple=World->SpawnActor<AGrapple>(ToolsListClass[ToolsListIndex]);
+	Grapple=World->SpawnActor<ATelekinesis>(ToolsListClass[ToolsListIndex]);
 
 	AMyriamCharacter* OwnerActor=Cast<AMyriamCharacter>(GetOwner());
 	Grapple->AttachToComponent(OwnerActor->GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,TEXT("ToolSocket"));

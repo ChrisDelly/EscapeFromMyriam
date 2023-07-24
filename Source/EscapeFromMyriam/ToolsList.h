@@ -33,7 +33,7 @@ private:
 
 	int32 ToolsListIndex=0;
 
-	class AGrapple* Grapple;
+	class ATelekinesis* Grapple;
 
 		
 };
