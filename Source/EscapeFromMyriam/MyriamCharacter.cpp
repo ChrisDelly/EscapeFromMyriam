@@ -84,7 +84,6 @@ void AMyriamCharacter::Tick(float DeltaTime)
 	if(HasHit)
 	{
 		HitActor=HitResult.GetActor();
-		HitComponent=HitResult.GetComponent();
 		//UE_LOG(LogTemp,Warning,TEXT("Hit! %s"),*HitActor->GetActorNameOrLabel());
 
 		
@@ -92,7 +91,6 @@ void AMyriamCharacter::Tick(float DeltaTime)
 	else
 	{
 		HitActor=nullptr;
-		HitComponent=nullptr;
 	}
 	
 	if(IsSprinting)
@@ -266,11 +264,6 @@ void AMyriamCharacter::RechargeStamina(float DeltaTime)
 		CurrentStamina+=StaminaConsumptionAmount*DeltaTime;
 	}
 	
-}
-
-UPrimitiveComponent* AMyriamCharacter::GetHitComponent() const
-{
-	return HitComponent;
 }
 
 

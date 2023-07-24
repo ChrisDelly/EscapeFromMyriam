@@ -29,4 +29,28 @@ class ESCAPEFROMMYRIAM_API ATelekinesis : public ATool
 
 	UPROPERTY(VisibleAnywhere)
 	UPrimitiveComponent* ObjectToGrab;
+
+	UPROPERTY(EditAnywhere, meta=(AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* TelekinesisMesh;
+
+	class UPhysicsHandleComponent* GetPhysicsHandle() const;
+
+	bool GetGrabbableInReach(FHitResult &OutHitResult) const;
+
+	UPROPERTY(EditAnywhere)
+	float MaxGrabDistance = 500;
+
+	UPROPERTY(EditAnywhere)
+	float GrabRadius = 80;
+
+	UPROPERTY(EditAnywhere)
+	float HoldDistance = 400;
+
+	UPROPERTY(VisibleAnywhere)
+	AActor* HitActor;
+
+	UPROPERTY(VisibleAnywhere)
+	UPrimitiveComponent* HitComponent;
+
+	void ManageLineTraceTelekinesis();
 };
