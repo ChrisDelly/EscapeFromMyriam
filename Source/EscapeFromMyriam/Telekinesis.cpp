@@ -5,6 +5,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "MyriamCharacter.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "DrawDebugHelpers.h"
 
 
@@ -34,16 +36,24 @@ void ATelekinesis::ToolActivate()
     if(IsGrabActive)
     {
         IsGrabActive = false;
-        ObjectToGrab=nullptr;
+        
         UE_LOG(LogTemp,Warning,TEXT("Release"));
 
         UPhysicsHandleComponent* PhysicsHandle = GetPhysicsHandle();        
         if(PhysicsHandle && PhysicsHandle->GetGrabbedComponent())
         {
             PhysicsHandle->GetGrabbedComponent()->WakeAllRigidBodies();		
-            PhysicsHandle->GetGrabbedComponent()->GetOwner()->Tags.Remove("Grabbed");
             PhysicsHandle->ReleaseComponent();
         }
+        //Launch grabbed object
+        if(HitComponent)
+        {
+            HitComponent->AddImpulse(Player->GetCamera()->GetForwardVector()*LaunchForce,NAME_None,true);
+        }
+        
+
+
+        ObjectToGrab=nullptr;
     }
     else
     {
@@ -65,13 +75,12 @@ void ATelekinesis::ToolActivate()
                 {                    
                     HitComponent->SetSimulatePhysics(true);
                     HitComponent->WakeAllRigidBodies();
-                    HitActor->Tags.Add("Grabbed");
                     HitActor->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
                     PhysicsHandle->GrabComponentAtLocationWithRotation(
                         HitComponent,
                         NAME_None,
                         HitActor->GetActorLocation(),
-                        GetActorRotation()
+                        Player->GetActorRotation()
                     );
                 }        
         }        
@@ -97,7 +106,7 @@ void ATelekinesis::ManageLineTraceTelekinesis()
     //line trace
     FHitResult HitResult;
 	FVector LineStartLocation=Player->GetActorLocation();
-	FVector LineEndLocation= LineStartLocation + Player->GetActorForwardVector() * MaxGrabDistance;
+	FVector LineEndLocation= LineStartLocation + Player->GetCamera()->GetForwardVector() * MaxGrabDistance;
 	bool HasHit=GetWorld()->SweepSingleByChannel(HitResult,
 	LineStartLocation,
 	LineEndLocation,
@@ -124,7 +133,7 @@ void ATelekinesis::ManageLineTraceTelekinesis()
 	
 	if(PhysicsHandle && PhysicsHandle->GetGrabbedComponent())
 	{
-		FVector TargetLocation=Player->GetActorLocation() + Player->GetActorForwardVector() *HoldDistance;
+		FVector TargetLocation=Player->GetActorLocation() + Player->GetCamera()->GetForwardVector() *HoldDistance;
 		PhysicsHandle->SetTargetLocationAndRotation(TargetLocation,Player->GetActorRotation());
 	}
 

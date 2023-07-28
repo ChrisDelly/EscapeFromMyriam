@@ -42,7 +42,10 @@ class ESCAPEFROMMYRIAM_API ATelekinesis : public ATool
 	float GrabRadius = 80;
 
 	UPROPERTY(EditAnywhere)
-	float HoldDistance = 80;
+	float HoldDistance = 100;
+
+	UPROPERTY(EditAnywhere)
+	float LaunchForce = 1000;
 
 	UPROPERTY(VisibleAnywhere)
 	AActor* HitActor;

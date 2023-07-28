@@ -29,7 +29,7 @@ void ATool::Tick(float DeltaTime)
 
 void ATool::ToolActivate()
 {
-    //UE_LOG(LogTemp,Warning,TEXT("tool Action"));
+    UE_LOG(LogTemp,Warning,TEXT("tool Action"));
 	
 }
 

@@ -59,6 +59,7 @@ public:
 	void AddItemToInventory(FString item);
 
 	USpringArmComponent* GetSpringArm();
+	UCameraComponent* GetCamera();
 
 	UCharacterMovementComponent* GetMovementComponent();
 
@@ -66,6 +67,8 @@ public:
 	void EndSprint();
 	void RechargeStamina(float DeltaTime);
 
+	void NextTool();
+	void PreviousTool();
 	
 
 private:

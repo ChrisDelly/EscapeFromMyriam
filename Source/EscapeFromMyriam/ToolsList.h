@@ -25,7 +25,9 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void UseTool();
-
+	
+	void NextTool();
+	void PreviousTool();
 private:
 
 	UPROPERTY(EditAnywhere)
@@ -33,7 +35,12 @@ private:
 
 	int32 ToolsListIndex=0;
 
-	class ATelekinesis* Grapple;
+	class ATool* CurrentTool;
+	class AGrapple* Grapple;
+	class ATelekinesis* Telekinesis;
+	
 
-		
+	void SelectTool(int32 Index);
+
+	
 };

@@ -123,6 +123,9 @@ void AMyriamCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Sprint",EInputEvent::IE_Pressed,this,&AMyriamCharacter::StartSprint);
 	PlayerInputComponent->BindAction("Sprint",EInputEvent::IE_Released,this,&AMyriamCharacter::EndSprint);
 
+	PlayerInputComponent->BindAction("NextTool",EInputEvent::IE_Pressed,this,&AMyriamCharacter::NextTool);
+	PlayerInputComponent->BindAction("PreviousTool",EInputEvent::IE_Pressed,this,&AMyriamCharacter::PreviousTool);
+
 
 
 }
@@ -205,6 +208,11 @@ USpringArmComponent* AMyriamCharacter::GetSpringArm()
 	return SpringArm;
 }
 
+UCameraComponent* AMyriamCharacter::GetCamera()
+{
+	return Camera;
+}
+
 UCharacterMovementComponent* AMyriamCharacter::GetMovementComponent()
 {
 	return GetCharacterMovement();
@@ -264,6 +272,16 @@ void AMyriamCharacter::RechargeStamina(float DeltaTime)
 		CurrentStamina+=StaminaConsumptionAmount*DeltaTime;
 	}
 	
+}
+
+void AMyriamCharacter::NextTool()
+{
+	ToolsList->NextTool();
+}
+
+void AMyriamCharacter::PreviousTool()
+{
+ToolsList->PreviousTool();	
 }
 
 
