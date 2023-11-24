@@ -61,11 +61,13 @@ public:
 	USpringArmComponent* GetSpringArm();
 	UCameraComponent* GetCamera();
 
-	UCharacterMovementComponent* GetMovementComponent();
+	UCharacterMovementComponent* GetMovementComponent();	
 
 	void StartSprint();
 	void EndSprint();
 	void RechargeStamina(float DeltaTime);
+	
+	void CheckJump();
 
 	void NextTool();
 	void PreviousTool();
@@ -84,6 +86,9 @@ USceneComponent* ObjectSpawnPoint;
 
 void MoveForward(float AxisValue);
 void MoveRight(float AxisValue);
+
+void ManageStamina(float DeltaTime);
+void ManageLineTrace();
 
 
 UPROPERTY(VisibleAnywhere)
@@ -105,7 +110,7 @@ void OpenOrCloseDoor(AActor* Actor);
 void ConsumeStamina(float DeltaTime);
 
 
-UPROPERTY(EditAnywhere)
+UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 class UToolsList* ToolsList;
 
 UPROPERTY(EditAnywhere)
@@ -124,6 +129,17 @@ float StaminaConsumptionAmount=20;
 UPROPERTY(VisibleAnywhere)
 bool IsSprinting=false;
 
+UPROPERTY(BlueprintReadOnly,meta = (AllowPrivateAccess = "true"))
+float CurrentJumpCharge=0;
+UPROPERTY(BlueprintReadOnly,meta = (AllowPrivateAccess = "true"))
+float MaxJumpCharge=100;
+UPROPERTY(EditAnywhere)
+float JumpChargeIncrement=25;
+UPROPERTY(EditAnywhere)
+float DefaultJumpZVelocity=420;
+
+UPROPERTY(VisibleAnywhere)
+bool IsJumping=false;
 
 
 };

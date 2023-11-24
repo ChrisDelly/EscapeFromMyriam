@@ -33,6 +33,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	TArray<TSubclassOf<class ATool>> ToolsListClass;
 
+	UPROPERTY(BlueprintReadOnly,meta = (AllowPrivateAccess = "true"))
 	int32 ToolsListIndex=0;
 
 	class ATool* CurrentTool;

@@ -45,14 +45,11 @@ void UToolsList::BeginPlay()
 	Grapple->SetOwner(this->GetOwner());
 	Telekinesis->AttachToComponent(OwnerActor->GetMesh(),FAttachmentTransformRules::KeepRelativeTransform,TEXT("ToolSocket"));
 	Telekinesis->SetOwner(this->GetOwner());
-	Telekinesis->SetHidden(true);
-
+	Telekinesis->SetActorHiddenInGame(true);
 }
 
 void UToolsList::UseTool()
 {
-	
-		
 	//UE_LOG(LogTemp,Warning,TEXT("current tool %s"),*Grapple->GetName());
 
 	if(CurrentTool == nullptr)
@@ -84,21 +81,16 @@ void UToolsList::NextTool()
 		//hide current tool
 		SelectTool(ToolsListIndex);	
 		CurrentTool->SetActorHiddenInGame(true);
-		//show next tool 
 
+		//show next tool 
 		ToolsListIndex++;		
 		SelectTool(ToolsListIndex);			
 		CurrentTool->SetActorHiddenInGame(false);
 	}
-	
-	
 }
 
 void UToolsList::PreviousTool()
 {
-	
-
-	
 	if(ToolsListIndex-1<0)
 		{	
 			SelectTool(ToolsListIndex);	
@@ -120,9 +112,6 @@ void UToolsList::PreviousTool()
 			SelectTool(ToolsListIndex);					
 			CurrentTool->SetActorHiddenInGame(false);
 		}
-
-
-	
 }
 
 // Called every frame
@@ -130,7 +119,7 @@ void UToolsList::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	//UE_LOG(LogTemp,Warning,TEXT("Index %d, max %d"),ToolsListIndex,ToolsListClass.Max());
+	
 }
 
 void UToolsList::SelectTool(int32 Index)

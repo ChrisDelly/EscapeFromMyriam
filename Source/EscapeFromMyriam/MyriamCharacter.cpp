@@ -68,40 +68,23 @@ void AMyriamCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FHitResult HitResult;
-	FVector LineStartLocation=Camera->GetComponentLocation();
-	FVector LineEndLocation= LineStartLocation + Camera->GetForwardVector() * MaxGrabDistance;
-	bool HasHit=GetWorld()->SweepSingleByChannel(HitResult,
-	LineStartLocation,
-	LineEndLocation,
-	FQuat::Identity,
-	ECC_GameTraceChannel1,
-	FCollisionShape::MakeSphere(SweepSize)
-	);
+	ManageLineTrace();
 
-	//DrawDebugLine(GetWorld(),LineStartLocation,LineEndLocation,FColor::Red,false,10,1,20);
-
-	if(HasHit)
-	{
-		HitActor=HitResult.GetActor();
-		//UE_LOG(LogTemp,Warning,TEXT("Hit! %s"),*HitActor->GetActorNameOrLabel());
-
-		
-	}
-	else
-	{
-		HitActor=nullptr;
-	}
+	ManageStamina(DeltaTime);
 	
-	if(IsSprinting)
-	{
-		ConsumeStamina(DeltaTime);
+	UE_LOG(LogTemp,Warning,TEXT("jump charge %f, is jumping: %s"),CurrentJumpCharge,IsJumping? TEXT("true"):TEXT("false"));
+
+	if(IsJumping)
+	{		
+		if(CurrentJumpCharge>=MaxJumpCharge)
+		{
+			CurrentJumpCharge=MaxJumpCharge;
+		}else
+		{
+			CurrentJumpCharge+=JumpChargeIncrement*DeltaTime;			
+		}
 	}
-	else
-	{
-		RechargeStamina(DeltaTime);
-	}
-	
+
 	
 }
 
@@ -116,7 +99,8 @@ void AMyriamCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis(TEXT("Look Up"),this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis(TEXT("Turn Right"),this, &APawn::AddControllerYawInput);
 
-	PlayerInputComponent->BindAction("Jump",EInputEvent::IE_Pressed,this,&ACharacter::Jump);
+	PlayerInputComponent->BindAction("Jump",EInputEvent::IE_Pressed,this,&AMyriamCharacter::CheckJump);
+	PlayerInputComponent->BindAction("Jump",EInputEvent::IE_Released,this,&AMyriamCharacter::CheckJump);
 	PlayerInputComponent->BindAction("Fire",EInputEvent::IE_Pressed,this,&AMyriamCharacter::Fire);
 	PlayerInputComponent->BindAction("Action",EInputEvent::IE_Pressed,this,&AMyriamCharacter::Action);
 
@@ -138,6 +122,43 @@ void AMyriamCharacter::MoveForward(float AxisValue)
 void AMyriamCharacter::MoveRight(float AxisValue)
 {
 	AddMovementInput(GetActorRightVector() * AxisValue);
+}
+
+void AMyriamCharacter::ManageStamina(float DeltaTime)
+{
+	if(IsSprinting)
+	{
+		ConsumeStamina(DeltaTime);
+	}
+	else
+	{
+		RechargeStamina(DeltaTime);
+	}
+}
+
+void AMyriamCharacter::ManageLineTrace()
+{
+	FHitResult HitResult;
+	FVector LineStartLocation=Camera->GetComponentLocation();
+	FVector LineEndLocation= LineStartLocation + Camera->GetForwardVector() * MaxGrabDistance;
+	bool HasHit=GetWorld()->SweepSingleByChannel(HitResult,
+	LineStartLocation,
+	LineEndLocation,
+	FQuat::Identity,
+	ECC_GameTraceChannel1,
+	FCollisionShape::MakeSphere(SweepSize)
+	);
+
+	//DrawDebugLine(GetWorld(),LineStartLocation,LineEndLocation,FColor::Red,false,10,1,20);
+	if(HasHit)
+	{
+		HitActor=HitResult.GetActor();
+		//UE_LOG(LogTemp,Warning,TEXT("Hit! %s"),*HitActor->GetActorNameOrLabel());		
+	}
+	else
+	{
+		HitActor=nullptr;
+	}
 }
 
 
@@ -272,6 +293,23 @@ void AMyriamCharacter::RechargeStamina(float DeltaTime)
 		CurrentStamina+=StaminaConsumptionAmount*DeltaTime;
 	}
 	
+}
+
+void AMyriamCharacter::CheckJump()
+{
+	if(IsJumping)
+	{	
+		GetCharacterMovement()->JumpZVelocity=DefaultJumpZVelocity+CurrentJumpCharge;
+		Jump();
+		IsJumping=false;
+		CurrentJumpCharge=0;
+	}
+	else
+	{
+		GetCharacterMovement()->JumpZVelocity=DefaultJumpZVelocity;
+		IsJumping=true;
+	}
+
 }
 
 void AMyriamCharacter::NextTool()
